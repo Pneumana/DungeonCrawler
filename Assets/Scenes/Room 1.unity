@@ -579,9 +579,9 @@ GameObject:
   m_Component:
   - component: {fileID: 210133062}
   - component: {fileID: 210133066}
-  - component: {fileID: 210133065}
   - component: {fileID: 210133064}
   - component: {fileID: 210133063}
+  - component: {fileID: 210133067}
   m_Layer: 0
   m_Name: Fireball
   m_TagString: Untagged
@@ -597,12 +597,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 210133061}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.25}
-  m_LocalScale: {x: 0.25, y: 1, z: 1}
+  m_LocalPosition: {x: -0.4156, y: 0.0364, z: -0.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 998916847}
-  - {fileID: 379371777}
   m_Father: {fileID: 482692844}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -641,28 +640,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 0.25, y: 0.25}
   m_Direction: 0
---- !u!114 &210133065
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 210133061}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8867f07d01db8484eb4a25e425b52bb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0
-  lifeSpan: 0
-  maxLife: 1
-  projectile: {fileID: 210133061}
-  spinner: {fileID: 792349678}
-  sword: {fileID: 660533705}
-  rotation: 0
-  real: 0
 --- !u!212 &210133066
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -704,7 +683,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9f7aa7b1260e2c74f8e496822c76280d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0d392f0741bb7774a9d80aefed575d66, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -715,6 +694,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &210133067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210133061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3856d1f14c489a40abc4a21cdb164cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
+  player: {fileID: 2130819120}
 --- !u!1 &274607011
 GameObject:
   m_ObjectHideFlags: 0
@@ -900,100 +893,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!1 &379371776
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 379371777}
-  - component: {fileID: 379371778}
-  m_Layer: 0
-  m_Name: Glow
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &379371777
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 379371776}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -5.25}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 210133062}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!108 &379371778
-Light:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 379371776}
-  m_Enabled: 1
-  serializedVersion: 10
-  m_Type: 0
-  m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2
-  m_Range: 10
-  m_SpotAngle: 1
-  m_InnerSpotAngle: 1
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 0
-    m_Resolution: -1
-    m_CustomResolution: -1
-    m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
-    m_CullingMatrixOverride:
-      e00: 1
-      e01: 0
-      e02: 0
-      e03: 0
-      e10: 0
-      e11: 1
-      e12: 0
-      e13: 0
-      e20: 0
-      e21: 0
-      e22: 1
-      e23: 0
-      e30: 0
-      e31: 0
-      e32: 0
-      e33: 1
-    m_UseCullingMatrixOverride: 0
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingLayerMask: 1
-  m_Lightmapping: 4
-  m_LightShadowCasterMode: 0
-  m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
-  m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
-  m_UseBoundingSphereOverride: 0
-  m_UseViewFrustumForShadowCasterCull: 1
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
 --- !u!1 &394614202
 GameObject:
   m_ObjectHideFlags: 0
@@ -1330,8 +1229,8 @@ MonoBehaviour:
   age: 0
   initAngle: 0
   hitCount: 0
-  launch: 0
-  launchProjectile: {fileID: 0}
+  launch: 1
+  launchProjectile: {fileID: 210133061}
 --- !u!70 &416313993
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -11951,7 +11850,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 998916846}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.75, z: 0.1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.1}
   m_LocalScale: {x: 0.5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12500,6 +12399,8 @@ MonoBehaviour:
   age: 0
   initAngle: 0
   hitCount: 0
+  launch: 1
+  launchProjectile: {fileID: 210133061}
 --- !u!1 &1214375293
 GameObject:
   m_ObjectHideFlags: 0
@@ -23055,6 +22956,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 717314150297883242, guid: b47a9fc6518c8354ab384266f2a4779b, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2764992468316237379, guid: b47a9fc6518c8354ab384266f2a4779b, type: 3}
       propertyPath: m_Name
       value: MainBranch
@@ -24066,6 +23971,8 @@ MonoBehaviour:
   age: 0
   initAngle: 0
   hitCount: 0
+  launch: 0
+  launchProjectile: {fileID: 0}
 --- !u!1 &2130819120
 GameObject:
   m_ObjectHideFlags: 0

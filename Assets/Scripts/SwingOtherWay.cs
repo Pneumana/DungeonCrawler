@@ -10,7 +10,9 @@ public class SwingOtherWay : MonoBehaviour
     public float age = 0;
     public float initAngle = 0.0f;
     public int hitCount = 0;
-
+    public bool launch = false;
+    public GameObject launchProjectile = null;
+    private bool hasShot;
     Quaternion pos;
     // Start is called before the first frame update
     void Start()
@@ -39,6 +41,17 @@ public class SwingOtherWay : MonoBehaviour
             //Debug.Log(target.transform.localRotation.z);
             Destroy(target);
             player.GetComponent<Move>().isSwingin = false;
+        }
+        if (age > 0.0625 && launch == true && hasShot == false)
+        {
+            GameObject projectilie;
+            projectilie = Instantiate(launchProjectile);
+            projectilie.SetActive(true);
+            projectilie.transform.position = player.transform.position;
+            projectilie.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Max(initAngle + (0 - (720 * age)), initAngle - 90) + target.transform.rotation.z));
+            // if the attack can throw a projectile, throw it here.
+            Debug.Log("shoot!");
+            hasShot = true;
         }
         age += 1 * Time.deltaTime;
         //body = target.GetComponent<Rigidbody2D>();
