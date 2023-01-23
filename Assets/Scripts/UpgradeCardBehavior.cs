@@ -20,6 +20,7 @@ public class UpgradeCardBehavior : MonoBehaviour, IPointerEnterHandler, IPointer
 
     GameObject desc;
     GameObject cardname;
+    public GameObject player;
 
     float scaleUp = 0.0f;
     // Start is called before the first frame update
@@ -53,6 +54,7 @@ public class UpgradeCardBehavior : MonoBehaviour, IPointerEnterHandler, IPointer
             if (Input.GetKeyUp(KeyCode.Mouse0))
             {
                 Debug.Log("Selected upgrade " + cardname + " with tier " + tier);
+                player.GetComponent<Move>().AddUpgrade(listUpgradeNames[upgradeID], tier);
                 card.transform.parent.GetComponent<UIUpdater>().KillUpgrades();
             }
         }

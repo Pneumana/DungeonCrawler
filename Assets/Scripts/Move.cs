@@ -4,11 +4,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Localization;
 
 public class Move : MonoBehaviour
 {
     //player movespeed
     public float speed = 10.0f;
+    //
+    public string EquippedWeapon = "Sword";
     //is the player charging their sword throw? used for stopping movement
     private bool isChargingUp = false;
     //how fast the sword is readied
@@ -88,9 +91,10 @@ public class Move : MonoBehaviour
     //creates the swing projectile
     void Attack(float a, float b, int hitNumber)
     {
-        GameObject clone;
-        Rigidbody2D hitbox;
         Vector3 pos = transform.position;
+        /*GameObject clone;
+        Rigidbody2D hitbox;
+        
         clone = Instantiate(Swing, transform);
         hitbox = clone.GetComponent<Rigidbody2D>();
         clone.SetActive(true);
@@ -99,22 +103,35 @@ public class Move : MonoBehaviour
         clone.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, -rot + ((90 * hitNumber)- 45)));
         clone.transform.localScale = new Vector3(1.0f + (float)(0.1f * Area), 1.0f + (float)(0.1f * Area));
         clone.GetComponent<SwingAttack>().initAngle = -rot + ((90 * hitNumber)- 45);
-        clone.GetComponent<SwingAttack>().hitCount = hitNumber;
+        clone.GetComponent<SwingAttack>().hitCount = hitNumber;*/
+        float rot = Mathf.Atan2(a - pos.x, b - pos.y) * Mathf.Rad2Deg;
+        Debug.Log(EquippedWeapon);
+        Player.GetComponent<WeaponOverseer>().BasicAttack(EquippedWeapon, rot);
     }
     void Attack1(float a, float b, int hitNumber)
     {
         GameObject clone;
         Rigidbody2D hitbox;
         Vector3 pos = transform.position;
-        clone = Instantiate(OtherSwing, transform);
-        hitbox = clone.GetComponent<Rigidbody2D>();
-        clone.SetActive(true);
-        clone.transform.position = pos;
-        float rot = Mathf.Atan2(a - pos.x, b - pos.y) * Mathf.Rad2Deg;
+        //clone = Instantiate(OtherSwing, transform);
+        //hitbox = clone.GetComponent<Rigidbody2D>();
+        /*clone.SetActive(true);
+        clone.transform.position = pos;*/
+
+        /*
         clone.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, -rot + ((90 * hitNumber) - 45)));
-        clone.transform.localScale = new Vector3(1.0f + (float)(0.1f * Area), 1.0f + (float)(0.1f * Area));
+        //clone.transform.localScale = new Vector3(1.0f + (float)(0.1f * Area), 1.0f + (float)(0.1f * Area));
         clone.GetComponent<SwingOtherWay>().initAngle = -rot + ((90 * hitNumber) - 45);
         clone.GetComponent<SwingOtherWay>().hitCount = hitNumber;
+        */
+        float rot = Mathf.Atan2(a - pos.x, b - pos.y) * Mathf.Rad2Deg;
+        Debug.Log(EquippedWeapon);
+        Player.GetComponent<WeaponOverseer>().BasicBackSwingAttack(EquippedWeapon, rot);
+    }
+    public void AddUpgrade(string name, int level)
+    {
+        //adds Level to the value of the string variable
+        Debug.Log("upgrading stat " + name + "with level " + level);
     }
     //Update method
     void Update()
@@ -201,20 +218,25 @@ public class Move : MonoBehaviour
     private void FixedUpdate()
     {
         //stops movement when swinging or charging throw
-        if (isChargingUp == true || isSwingin == true || disableInput == true)
+        if (isChargingUp == true || disableInput == true)
         {
             horizontal = 0;
             vertical = 0;
         }
         //reduces movement speed by 30% when moving diagonally
-        if (isChargingUp == false && isSwingin == false)
+        if (isChargingUp == false)
         {
             if (horizontal != 0 && vertical != 0) 
             {
                 horizontal *= 0.7f;
                 vertical *= 0.7f;
             }
-            
+            //halves movespeed when swinging
+            if (isSwingin == true)
+            {
+                horizontal *= 0.5f;
+                vertical *= 0.5f;
+            }
         }
         //update position
         plr.velocity = new Vector2(horizontal * (float)(speed + Speed), vertical * (float)(speed+Speed));

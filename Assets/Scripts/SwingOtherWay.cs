@@ -17,6 +17,10 @@ public class SwingOtherWay : MonoBehaviour
     {
         //initAngle = transform.rotation.z;
     }
+    public void SetStartingAngle(float rotation)
+    {
+        initAngle = -rotation + 45;
+    }
     void OnCollisionEnter2D(Collision2D collision)
     {
 
@@ -32,12 +36,13 @@ public class SwingOtherWay : MonoBehaviour
     {
         if (age > 0.25)
         {
-            Debug.Log(target.transform.localRotation.z);
+            //Debug.Log(target.transform.localRotation.z);
             Destroy(target);
             player.GetComponent<Move>().isSwingin = false;
         }
         age += 1 * Time.deltaTime;
         //body = target.GetComponent<Rigidbody2D>();
+        target.gameObject.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
         pos = target.transform.rotation;
         target.transform.localRotation = Quaternion.Euler(new Vector3(0, 0,Mathf.Max(initAngle + (0 - (720 * age )), initAngle - 90) + target.transform.rotation.z));
     }

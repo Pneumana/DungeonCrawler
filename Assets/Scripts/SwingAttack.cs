@@ -10,12 +10,18 @@ public class SwingAttack : MonoBehaviour
     public float age = 0;
     public float initAngle = 0.0f;
     public int hitCount = 0;
-
+    public bool launch = false;
+    public GameObject launchProjectile = null;
     Quaternion pos;
     // Start is called before the first frame update
     void Start()
     {
         //initAngle = transform.rotation.z;
+    }
+
+    public void SetStartingAngle(float rotation)
+    {
+        initAngle = -rotation - 45;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -32,12 +38,13 @@ public class SwingAttack : MonoBehaviour
     {
         if (age > 0.25)
         {
-            Debug.Log(target.transform.localRotation.z);
+            //Debug.Log(target.transform.localRotation.z);
             Destroy(target);
             player.GetComponent<Move>().isSwingin = false;
         }
         age += 1 * Time.deltaTime;
         //body = target.GetComponent<Rigidbody2D>();
+        target.gameObject.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
         pos = target.transform.rotation;
         target.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, ((Mathf.Min((target.transform.rotation.z + 720 * age), 90))) + initAngle));
     }
