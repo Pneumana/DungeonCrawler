@@ -62,6 +62,7 @@ public class Move : MonoBehaviour
     public int Area;
     public int Speed;
     public int Range;
+    public int Duration;
 
     private void Start()
     {

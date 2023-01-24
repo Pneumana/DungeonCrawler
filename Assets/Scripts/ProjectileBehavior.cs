@@ -45,6 +45,7 @@ public class ProjectileBehavior : MonoBehaviour
         if (collision.gameObject.tag == "Wall")
         {
             //hitbox.isTrigger = true;
+            this.gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
             Vector3 pos = transform.position;
             plr = GameObject.Find("Player");
             hitWall = true;
@@ -82,6 +83,7 @@ public class ProjectileBehavior : MonoBehaviour
             //projectile.transform.position += transform.up * (speed*Time.deltaTime);
             if (hitWall == true)
             {
+                this.gameObject.GetComponent<CapsuleCollider2D>().isTrigger = true;
                 
                 floorAge += 1;
                 body.rotation += (Mathf.Max(1000.0f - floorAge, 0)) * Time.deltaTime;
