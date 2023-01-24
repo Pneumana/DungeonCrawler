@@ -11851,7 +11851,7 @@ Transform:
   m_GameObject: {fileID: 998916846}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.1}
-  m_LocalScale: {x: 0.5, y: 1, z: 1}
+  m_LocalScale: {x: 0.1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 210133062}
@@ -11878,7 +11878,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11908,7 +11908,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.4999994
+        value: 0.26000038
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -11929,8 +11929,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.8584906, g: 0.68228745, b: 0.06074225, a: 1}
+      key1: {r: 0.9056604, g: 0.35044196, b: 0.012815925, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -23987,6 +23987,7 @@ GameObject:
   - component: {fileID: 2130819125}
   - component: {fileID: 2130819126}
   - component: {fileID: 2130819127}
+  - component: {fileID: 2130819128}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -24153,3 +24154,21 @@ MonoBehaviour:
   ps: {fileID: 482692843}
   playerScript: {fileID: 2130819121}
   player: {fileID: 2130819120}
+--- !u!114 &2130819128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2130819120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b65485bfe50cc14f8f918cba6afb2e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Area: 0
+  Speed: 0
+  Haste: 0
+  Damage: 0
+  Pierce: 0
+  Health: 0
