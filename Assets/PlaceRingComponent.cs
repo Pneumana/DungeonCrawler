@@ -13,13 +13,19 @@ namespace UnityEngine.Localization
         //runnable when the player touches the "refresh board" volume
         public void PlaceMe(float x, float y, float z, float distance, float angle)
         {
-            this.gameObject.transform.position = new Vector3(x - (Mathf.Sin(angle) * distance), y + (Mathf.Cos(angle) * distance), z);
+            this.gameObject.transform.position = new Vector3(Mathf.Floor(x - (Mathf.Sin(angle) * distance)), Mathf.Floor(y + (Mathf.Cos(angle) * distance)), z);
             
         }
         // places the part at start
         void Start()
         {
-            this.PlaceMe(0.0f, 37.0f, 0.0f, 13.0f, SpawnAngle);
+            this.PlaceMe(0.0f, 37.0f, 0.0f, SpawnDistance, SpawnAngle);
+        }
+
+        private void Update()
+        {
+            SpawnAngle += 1.0f * Time.deltaTime;
+            this.PlaceMe(0.0f, 37.0f, 0.0f, SpawnDistance, SpawnAngle);
         }
     }
 }

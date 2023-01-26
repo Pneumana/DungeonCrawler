@@ -25,6 +25,8 @@ public class Move : MonoBehaviour
     public GameObject Player;
     public GameObject Swing;
     public GameObject OtherSwing;
+
+    Animator anim;
     //add specific weapon classes that are invoked using equippedWeapon.Primary or equippedWeapon.Secondary
     //attack chains are in the weapon's class
     public GameObject equippedWeapon;
@@ -239,6 +241,13 @@ public class Move : MonoBehaviour
                 vertical *= 0.5f;
             }
         }
+        anim = this.gameObject.GetComponent<Animator>();
+        //update the player's current animation state
+        if (vertical < 0 && horizontal == 0) { anim.Play("PlayerFront", 0);}
+        if (vertical > 0 && horizontal == 0) {anim.Play("PlayerBack", 0);}
+        if (horizontal > 0) { anim.Play("PlayerRight", 0); }
+        if (horizontal < 0) { anim.Play("PlayerLeft", 0); }
+        if(horizontal == 0 && vertical == 0) {anim.StopPlayback();}
         //update position
         plr.velocity = new Vector2(horizontal * (float)(speed + Speed), vertical * (float)(speed+Speed));
     }
