@@ -73,22 +73,23 @@ public class Move : MonoBehaviour
     //function used to throw the sword. A is MouseX and B is MouseY with the power being the force the projectile is launched with.
     void Launch(float a, float b, float power)
     {
-        GameObject clone;
-        Rigidbody2D hitbox;
+        //GameObject clone;
+        //Rigidbody2D hitbox;
         Vector3 pos = transform.position;
-        clone = Instantiate(Projectile, transform);
-        hitbox = clone.GetComponent<Rigidbody2D>();
-        clone.SetActive(true);
-        clone.transform.position = pos;
+        //clone = Instantiate(Projectile, transform);
+        //hitbox = clone.GetComponent<Rigidbody2D>();
+        //clone.SetActive(true);
+        //clone.transform.position = pos;
         float rot = Mathf.Atan2(a - pos.x,b - pos.y) * Mathf.Rad2Deg;
-        hitbox.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -rot));
-        clone.transform.localScale = new Vector3(1.0f + (float)(0.1f * Area), 1.0f + (float)(0.1f * Area));
-        ProjectileBehavior pb = clone.GetComponent<ProjectileBehavior>();
+        //hitbox.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -rot));
+        //clone.transform.localScale = new Vector3(1.0f + (float)(0.1f * Area), 1.0f + (float)(0.1f * Area));
+        //ProjectileBehavior pb = clone.GetComponent<ProjectileBehavior>();
         //min(max(minpower, (power*2) * 40.0f), maxpower)
-        pb.speed = Mathf.Min(Mathf.Max(15.0f,(power*2.0f) * 40.0f), 120.0f);
-        clone.transform.parent = null;
-        updater.UpdateSword();
-        Debug.Log("created clone @ " +transform.position + "with rotation " +rot + " with power " +power);
+        //pb.speed = Mathf.Min(Mathf.Max(15.0f,(power*2.0f) * 40.0f), 120.0f);
+        //clone.transform.parent = null;
+        //updater.UpdateSword();
+        //Debug.Log("created clone @ " +transform.position + "with rotation " +rot + " with power " +power);
+        Player.GetComponent<WeaponOverseer>().SpecialAttack(EquippedWeapon, rot, power);
     }
 
     //creates the swing projectile

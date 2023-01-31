@@ -5845,7 +5845,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 2130819120}
   SpawnAngle: 0
-  SpawnDistance: 13
+  SpawnDistance: 20
 --- !u!65 &288577143
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18089,9 +18089,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1273161561}
   - component: {fileID: 1273161565}
-  - component: {fileID: 1273161564}
   - component: {fileID: 1273161563}
   - component: {fileID: 1273161562}
+  - component: {fileID: 1273161566}
   m_Layer: 0
   m_Name: SpecialFireStaff
   m_TagString: Untagged
@@ -18153,26 +18153,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 2}
   m_Direction: 0
---- !u!114 &1273161564
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1273161560}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8867f07d01db8484eb4a25e425b52bb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0
-  lifeSpan: 0
-  maxLife: 1
-  projectile: {fileID: 1273161560}
-  spinner: {fileID: 792349678}
-  sword: {fileID: 660533705}
-  rotation: 0
-  real: 0
 --- !u!212 &1273161565
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -18225,6 +18205,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1273161566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1273161560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ccf41963cd812149a19b077981bfb44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseScale: 1
+  scaleFactor: 0.1
 --- !u!4 &1317001166
 Transform:
   m_ObjectHideFlags: 0
@@ -18420,8 +18414,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.8301887, g: 0.66934985, b: 0.08928439, a: 1}
+      key1: {r: 1, g: 0.23712519, b: 0, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -28725,7 +28719,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7878791194534275874, guid: 2f02fbfd97c3ea74da3ed3db58278a0c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.5
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 7878791194534275874, guid: 2f02fbfd97c3ea74da3ed3db58278a0c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -28754,6 +28748,10 @@ PrefabInstance:
     - target: {fileID: 7878791194534275874, guid: 2f02fbfd97c3ea74da3ed3db58278a0c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390148224394182489, guid: 2f02fbfd97c3ea74da3ed3db58278a0c, type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f02fbfd97c3ea74da3ed3db58278a0c, type: 3}

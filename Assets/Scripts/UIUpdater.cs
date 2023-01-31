@@ -69,6 +69,7 @@ public class UIUpdater : MonoBehaviour
     {
         GameObject clone;
         //creates 3 UpgradeCard objects, positioning them from left to right
+        // in this function, add results and conditonals for new rolls not == results
         for (int i = 0; i < 3; i++)
         {
             GameObject desc;

@@ -36,9 +36,19 @@ namespace UnityEngine.Localization
             //somehow add function to swing projectiles to launch 
             projectile.GetComponent<SwingOtherWay>().SetStartingAngle(rotation);
         }
-        public void SpecialAttack(string weaponName)
+        public void SpecialAttack(string weaponName, float rotation, float power)
         {
-            Instantiate(GameObject.Find("Special" + weaponName));
+            GameObject projectile;
+            projectile = Instantiate(ps.transform.Find("Special" + weaponName).gameObject);
+            projectile.SetActive(true);
+            projectile.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
+            projectile.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, -rotation + ((0) - 45)));
+            projectile.transform.localScale = new Vector3(1.0f + (float)(0.1f * playerScript.Area), 1.0f + (float)(0.1f * playerScript.Area));
+            //power is also charge time
+            if (weaponName == "FireStaff") 
+            {
+                playerScript.hasSword = true;
+            }
         }
     }
 }
