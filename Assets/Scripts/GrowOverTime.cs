@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UnityEngine.Localization
-{
+
     public class GrowOverTime : MonoBehaviour
     {
         // Start is called before the first frame update
@@ -16,6 +15,7 @@ namespace UnityEngine.Localization
         //used for damage ticks
         //deals damage over 0.25 second intervals
         private int damageCD = 0;
+        public bool isEnemy = false;
         void Start()
         {
         
@@ -25,11 +25,19 @@ namespace UnityEngine.Localization
         void Update()
         {
             age += 1;
-        this.gameObject.transform.localScale =  new Vector3(this.gameObject.transform.localScale.x + (0.1f * Time.deltaTime), this.gameObject.transform.localScale.y + (0.1f * Time.deltaTime));
+            this.gameObject.transform.localScale =  new Vector3(this.gameObject.transform.localScale.x + (0.1f * Time.deltaTime), this.gameObject.transform.localScale.y + (0.1f * Time.deltaTime));
             if (age >= 120)
             {
                 Destroy(this.gameObject);
             }
-        }
+            if (isEnemy == false)
+            {
+                Debug.Log("friend :D");
+            }
+            if (isEnemy == true)
+            {
+                Debug.Log("devil D:");
+            }
     }
-}
+    }
+

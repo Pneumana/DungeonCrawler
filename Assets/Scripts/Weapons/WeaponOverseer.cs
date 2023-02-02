@@ -20,7 +20,7 @@ namespace UnityEngine.Localization
             projectile.SetActive(true);
             projectile.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
             projectile.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, -rotation + ((0) - 45)));
-            projectile.transform.localScale = new Vector3(1.0f + (float)(0.1f * playerScript.Area), 1.0f + (float)(0.1f * playerScript.Area));
+            projectile.transform.localScale = new Vector3(1.0f + (float)(0.1f * playerScript.Area), 1.0f + (float)(0.1f * (playerScript.Area + 1)));
             //somehow add function to swing projectiles to launch 
             projectile.GetComponent<SwingAttack>().SetStartingAngle(rotation);
         }
@@ -32,7 +32,7 @@ namespace UnityEngine.Localization
             projectile.SetActive(true);
             projectile.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
             projectile.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, -rotation + ((0) - 45)));
-            projectile.transform.localScale = new Vector3(1.0f + (float)(0.1f * playerScript.Area), 1.0f + (float)(0.1f * playerScript.Area));
+            projectile.transform.localScale = new Vector3(1.0f + (float)(0.1f * playerScript.Area), 1.0f + (float)(0.1f * (playerScript.Area + 1)));
             //somehow add function to swing projectiles to launch 
             projectile.GetComponent<SwingOtherWay>().SetStartingAngle(rotation);
         }
@@ -43,11 +43,12 @@ namespace UnityEngine.Localization
             projectile.SetActive(true);
             projectile.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
             projectile.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, -rotation + ((0) - 45)));
-            projectile.transform.localScale = new Vector3(1.0f + (float)(0.1f * playerScript.Area), 1.0f + (float)(0.1f * playerScript.Area));
+            projectile.transform.localScale = new Vector3(1.0f + (float)(0.1f * playerScript.Area), 1.0f + (float)(0.1f * (playerScript.Area + 1)));
             //power is also charge time
-            if (weaponName == "FireStaff") 
+            if (weaponName == "Sword") 
             {
-                playerScript.hasSword = true;
+                playerScript.hasSword = false;
+                Debug.Log("player looses their weapon");
             }
         }
     }

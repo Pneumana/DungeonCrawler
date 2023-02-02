@@ -30,11 +30,11 @@ using UnityEngine;
             Debug.Log("moving down");
         }
         //moves up and down until reaching the maxDistance float
-        if(pos.y > maxDistance && down == false)
+        if(pos.y > maxDistance)
         {
             down = true;
         }
-        if(pos.y < -maxDistance && down == true)
+        if(pos.y < -maxDistance)
         {
             down = false;
         }

@@ -171,7 +171,7 @@ public class Move : MonoBehaviour
             {
                 isChargingUp = false;
                 Launch(worldPosition.x, worldPosition.y, charge);
-                hasSword = false;
+                //hasSword = false;
                 charge = 0;
             }
         }
@@ -212,7 +212,7 @@ public class Move : MonoBehaviour
                 if (charge > chargeMax + 3)
                 {
                     Launch(worldPosition.x, worldPosition.y, charge);
-                    hasSword = false;
+                    //hasSword = false;
                     charge = 0;
                 }
             }

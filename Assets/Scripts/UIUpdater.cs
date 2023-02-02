@@ -70,6 +70,11 @@ public class UIUpdater : MonoBehaviour
         GameObject clone;
         //creates 3 UpgradeCard objects, positioning them from left to right
         // in this function, add results and conditonals for new rolls not == results
+        string result1;
+        string result2;
+        string result0;
+
+        string result;
         for (int i = 0; i < 3; i++)
         {
             GameObject desc;
@@ -78,11 +83,19 @@ public class UIUpdater : MonoBehaviour
             clone.SetActive(true);
             clone.transform.SetParent(GameObject.Find("Canvas").gameObject.transform, false);
             clone.transform.position = new Vector3(((i * 150) - 150 ) + (Screen.width/2), clone.transform.position.y);
+            
             desc = card.transform.Find("Description").gameObject;
             desc.GetComponent<TextMeshProUGUI>().color = new Color(1,1,1,0);
             cardname = card.transform.Find("CardName").gameObject;
             cardname.GetComponent<TextMeshProUGUI>().color = new Color(1, 1, 1, 0);
             Player.GetComponent<Move>().disableInput = true;
+            result = UnityEngine.Random.Range(0, 4).ToString();
+            //if (result == result0)
+            //{
+
+            //}
+            clone.GetComponent<UpgradeCardBehavior>().upgradeID = 2;
+            Debug.Log("result " + i + " assigned ");
         }
     }
     public void KillUpgrades()
