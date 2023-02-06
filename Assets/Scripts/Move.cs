@@ -114,8 +114,8 @@ public class Move : MonoBehaviour
     }
     void Attack1(float a, float b, int hitNumber)
     {
-        GameObject clone;
-        Rigidbody2D hitbox;
+        //GameObject clone;
+        //Rigidbody2D hitbox;
         Vector3 pos = transform.position;
         //clone = Instantiate(OtherSwing, transform);
         //hitbox = clone.GetComponent<Rigidbody2D>();
@@ -135,8 +135,16 @@ public class Move : MonoBehaviour
     public void AddUpgrade(string name, int level)
     {
         //adds Level to the value of the string variable
-        Debug.Log("upgrading stat " + name + "with level " + level);
+
+        Debug.Log("upgrading stat " + name + " with level " + level);
+        if (name == "Health") { Health += level; }
+        if (name == "Haste") { attackSpeed += level; }
+        if (name == "Damage") { Damage += level; }
+        if (name == "Speed") { Speed += level; }
+        if (name == "Area") { Area += level; }
+        //"Attack", "Speed", "Haste", "Health", "Area"
     }
+
     //Update method
     void Update()
     {
@@ -187,14 +195,14 @@ public class Move : MonoBehaviour
                 {
                     Attack(worldPosition.x, worldPosition.y, 0);
                     isSwingin = true;
-                    attackDelay = (baseAttackTime * (1.0f - attackSpeed)) * 0.50f;
+                    attackDelay = (baseAttackTime * (1.0f - (attackSpeed/10.0f))) * 0.50f;
                     hitCount += 1;
                 }
                 else
                 {
                     Attack1(worldPosition.x, worldPosition.y, 1);
                     isSwingin = true;
-                    attackDelay = (baseAttackTime * (1.0f - attackSpeed)) * 1.0f;
+                    attackDelay = (baseAttackTime * (1.0f - (attackSpeed/10.0f))) * 1.0f;
                     hitCount = 0;
                 }
 

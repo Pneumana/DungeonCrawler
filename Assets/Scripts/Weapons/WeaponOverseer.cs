@@ -15,7 +15,7 @@ namespace UnityEngine.Localization
         {
             //weaponName and the float are required for spawning.
             GameObject projectile;
-            projectile = Instantiate(ps.transform.Find("Basic" + weaponName).gameObject);
+            projectile = Instantiate(ps.transform.Find(weaponName).Find("Basic" + weaponName).gameObject);
             //projectile = Instantiate(GameObject.Find("Basic" + weaponName));
             projectile.SetActive(true);
             projectile.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
@@ -28,10 +28,10 @@ namespace UnityEngine.Localization
         {
             //weaponName and the float are required for spawning.
             GameObject projectile;
-            projectile = Instantiate(ps.transform.Find("BasicBackswing" + weaponName).gameObject);
+            projectile = Instantiate(ps.transform.Find(weaponName).Find("BasicBackswing" + weaponName).gameObject);
             projectile.SetActive(true);
             projectile.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
-            projectile.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, -rotation + ((0) - 45)));
+            projectile.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, -rotation + ((0) + 45)));
             projectile.transform.localScale = new Vector3(1.0f + (float)(0.1f * playerScript.Area), 1.0f + (float)(0.1f * (playerScript.Area + 1)));
             //somehow add function to swing projectiles to launch 
             projectile.GetComponent<SwingOtherWay>().SetStartingAngle(rotation);
@@ -39,11 +39,16 @@ namespace UnityEngine.Localization
         public void SpecialAttack(string weaponName, float rotation, float power)
         {
             GameObject projectile;
-            projectile = Instantiate(ps.transform.Find("Special" + weaponName).gameObject);
+            projectile = Instantiate(ps.transform.Find(weaponName).Find("Special" + weaponName).gameObject);
             projectile.SetActive(true);
             projectile.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
-            projectile.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, -rotation + ((0) - 45)));
+            projectile.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, -rotation));
             projectile.transform.localScale = new Vector3(1.0f + (float)(0.1f * playerScript.Area), 1.0f + (float)(0.1f * (playerScript.Area + 1)));
+            if (projectile.GetComponent<ProjectileBehavior>() != null)
+            {
+                ProjectileBehavior pb = projectile.GetComponent<ProjectileBehavior>();
+                pb.speed = 40.0f;
+            }
             //power is also charge time
             if (weaponName == "Sword") 
             {

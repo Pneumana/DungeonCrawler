@@ -5,9 +5,9 @@ using UnityEngine;
 
     public class GrowOverTime : MonoBehaviour
     {
-        // Start is called before the first frame update
-       
-        private int age = 0;
+    // Start is called before the first frame update
+    public GameObject player;
+        private float age = 0;
         //base size of the hitbox
         public float baseScale = 1.0f;
         //increase in size per second
@@ -24,19 +24,19 @@ using UnityEngine;
         // Update is called once per frame
         void Update()
         {
-            age += 1;
-            this.gameObject.transform.localScale =  new Vector3(this.gameObject.transform.localScale.x + (0.1f * Time.deltaTime), this.gameObject.transform.localScale.y + (0.1f * Time.deltaTime));
-            if (age >= 120)
+            age += 1 * Time.deltaTime;
+            this.gameObject.transform.localScale =  new Vector3(this.gameObject.transform.localScale.x + ((0.1f * Time.deltaTime) * (player.gameObject.GetComponent<Move>().Area + 1)),this.gameObject.transform.localScale.y + ((0.1f * Time.deltaTime) * (player.gameObject.GetComponent<Move>().Area + 1)));
+            if (age >= 5)
             {
                 Destroy(this.gameObject);
             }
             if (isEnemy == false)
             {
-                Debug.Log("friend :D");
+                //Debug.Log("friend :D");
             }
             if (isEnemy == true)
             {
-                Debug.Log("devil D:");
+                //Debug.Log("devil D:");
             }
     }
     }

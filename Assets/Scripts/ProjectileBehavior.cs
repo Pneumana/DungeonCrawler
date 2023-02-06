@@ -76,9 +76,9 @@ public class ProjectileBehavior : MonoBehaviour
             lifeSpan += 1.0f * Time.deltaTime;
             //hitbox.velocity = transform.up * speed;
             //pos = projectile.transform.forward;
-            if (lifeSpan >= maxLife)
+            if (lifeSpan >= maxLife && hitWall==false)
             {
-                //Destroy(projectile);
+                hitWall = true;
             }
             //projectile.transform.position += transform.up * (speed*Time.deltaTime);
             if (hitWall == true)
@@ -93,6 +93,7 @@ public class ProjectileBehavior : MonoBehaviour
             //fires once
             if (floorAge >= 1500.0f)
             {
+                plr = GameObject.Find("Player");
                 rtrnSword = Instantiate(sword);
                 rtrnSword.transform.position = transform.position;
                 rtrnSword.SetActive(true);

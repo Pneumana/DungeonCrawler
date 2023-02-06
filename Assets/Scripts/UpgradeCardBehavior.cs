@@ -38,7 +38,7 @@ public class UpgradeCardBehavior : MonoBehaviour, IPointerEnterHandler, IPointer
         cardname.GetComponent<TextMeshProUGUI>().color = new Color(1, 1, 1, 1);
         desc.GetComponent<TextMeshProUGUI>().color = new Color(1, 1, 1, 1);
         //myStringReference.StringReference.TableEntryReference = "TEST";
-        // public LocalizedString localizedString = new LocalizedString  TableReference = "My String Table Collection", TableEntryReference = "My Text 1";
+        //LocalizedString localizedString = new LocalizedString(TableReference = "My String Table Collection", TableEntryReference = "My Text 1");
     }
 
     // Update is called once per frame
