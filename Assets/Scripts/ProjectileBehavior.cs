@@ -85,13 +85,13 @@ public class ProjectileBehavior : MonoBehaviour
             {
                 this.gameObject.GetComponent<CapsuleCollider2D>().isTrigger = true;
                 
-                floorAge += 1;
+                floorAge += 1 * Time.deltaTime;
                 body.rotation += (Mathf.Max(1000.0f - floorAge, 0)) * Time.deltaTime;
                 //light = projectile.transform.Find("Glow").gameObject;
                 //light.GetComponent<Light>().spotAngle = (floorAge / 1500) * 30;
             }
             //fires once
-            if (floorAge >= 1500.0f)
+            if (floorAge >= 10.0f)
             {
                 plr = GameObject.Find("Player");
                 rtrnSword = Instantiate(sword);
@@ -99,13 +99,6 @@ public class ProjectileBehavior : MonoBehaviour
                 rtrnSword.SetActive(true);
                 rtrnSword.transform.localScale = new Vector3(1.0f + (float)(0.1f * plr.GetComponent<Move>().Area), 1.0f + (float)(0.1f * plr.GetComponent<Move>().Area));
                 Destroy(projectile);
-                /*Vector3 pos = transform.position;
-                plr = GameObject.Find("Player");
-                //bring the sword back to the player
-                //this functionality is kinda cool.
-                float rot = Mathf.Atan2(plr.transform.position.x - pos.x, plr.transform.position.y - pos.y) * Mathf.Rad2Deg;
-                body.rotation = -rot;
-                body.AddForce(transform.up * (10.0f * Time.deltaTime), ForceMode2D.Impulse);*/
             }
             
 

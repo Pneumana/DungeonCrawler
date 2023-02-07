@@ -8,6 +8,7 @@ namespace UnityEngine.Localization
     {
         // Start is called before the first frame update
         int speed;
+        
         void Start()
         {
             speed = 10;
@@ -17,22 +18,40 @@ namespace UnityEngine.Localization
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKey(KeyCode.W)) 
+            //other keybinds
+            if (Input.GetKey(KeyCode.Q)) { Debug.Log("Q"); }
+            if (Input.GetKey(KeyCode.A)) { Debug.Log("A"); }
+            if (Input.GetKey(KeyCode.W)) { Debug.Log("W"); }
+
+            if (Input.GetKey(KeyCode.R)) { Debug.Log("R"); }
+            if (Input.GetKey(KeyCode.T)) { Debug.Log("T"); }
+            if (Input.GetKey(KeyCode.G)) { Debug.Log("G"); }
+            //movement
+            float up = 0;
+            float right = 0;
+            if (Input.GetKey(KeyCode.E)) 
             {
-            this.gameObject.transform.position = this.gameObject.transform.position + (Vector3.up * Time.deltaTime) * speed;
-            }
-            if (Input.GetKey(KeyCode.S))
-            {
-                this.gameObject.transform.position = this.gameObject.transform.position - (Vector3.up * Time.deltaTime) * speed;
+                up = 1.0f;
             }
             if (Input.GetKey(KeyCode.D))
             {
-                this.gameObject.transform.position = this.gameObject.transform.position + (Vector3.right * Time.deltaTime) * speed;
+                up = -1.0f;
             }
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.F))
             {
-                this.gameObject.transform.position = this.gameObject.transform.position - (Vector3.right * Time.deltaTime) * speed;
+                right = 1.0f;
             }
+            if (Input.GetKey(KeyCode.S))
+            {
+                right = -1.0f;
+            }
+            if(right != 0 && up != 0) 
+            {
+                right *= 0.75f;
+                up *= 0.75f;
+                Debug.Log("Moving diagonally");
+            }
+            this.gameObject.transform.position += new Vector3((right * Time.deltaTime) * speed, (up * Time.deltaTime) * speed);
         }
     }
 }

@@ -70,25 +70,11 @@ public class Move : MonoBehaviour
     {
         plr = GetComponent<Rigidbody2D>();
     }
-    //function used to throw the sword. A is MouseX and B is MouseY with the power being the force the projectile is launched with.
+    //uses secondary attack
     void Launch(float a, float b, float power)
     {
-        //GameObject clone;
-        //Rigidbody2D hitbox;
         Vector3 pos = transform.position;
-        //clone = Instantiate(Projectile, transform);
-        //hitbox = clone.GetComponent<Rigidbody2D>();
-        //clone.SetActive(true);
-        //clone.transform.position = pos;
         float rot = Mathf.Atan2(a - pos.x,b - pos.y) * Mathf.Rad2Deg;
-        //hitbox.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -rot));
-        //clone.transform.localScale = new Vector3(1.0f + (float)(0.1f * Area), 1.0f + (float)(0.1f * Area));
-        //ProjectileBehavior pb = clone.GetComponent<ProjectileBehavior>();
-        //min(max(minpower, (power*2) * 40.0f), maxpower)
-        //pb.speed = Mathf.Min(Mathf.Max(15.0f,(power*2.0f) * 40.0f), 120.0f);
-        //clone.transform.parent = null;
-        //updater.UpdateSword();
-        //Debug.Log("created clone @ " +transform.position + "with rotation " +rot + " with power " +power);
         Player.GetComponent<WeaponOverseer>().SpecialAttack(EquippedWeapon, rot, power);
     }
 
@@ -96,50 +82,24 @@ public class Move : MonoBehaviour
     void Attack(float a, float b, int hitNumber)
     {
         Vector3 pos = transform.position;
-        /*GameObject clone;
-        Rigidbody2D hitbox;
-        
-        clone = Instantiate(Swing, transform);
-        hitbox = clone.GetComponent<Rigidbody2D>();
-        clone.SetActive(true);
-        clone.transform.position = pos;
         float rot = Mathf.Atan2(a - pos.x, b - pos.y) * Mathf.Rad2Deg;
-        clone.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, -rot + ((90 * hitNumber)- 45)));
-        clone.transform.localScale = new Vector3(1.0f + (float)(0.1f * Area), 1.0f + (float)(0.1f * Area));
-        clone.GetComponent<SwingAttack>().initAngle = -rot + ((90 * hitNumber)- 45);
-        clone.GetComponent<SwingAttack>().hitCount = hitNumber;*/
-        float rot = Mathf.Atan2(a - pos.x, b - pos.y) * Mathf.Rad2Deg;
-        Debug.Log(EquippedWeapon);
         Player.GetComponent<WeaponOverseer>().BasicAttack(EquippedWeapon, rot);
     }
+    //backswing attack
     void Attack1(float a, float b, int hitNumber)
     {
-        //GameObject clone;
-        //Rigidbody2D hitbox;
         Vector3 pos = transform.position;
-        //clone = Instantiate(OtherSwing, transform);
-        //hitbox = clone.GetComponent<Rigidbody2D>();
-        /*clone.SetActive(true);
-        clone.transform.position = pos;*/
-
-        /*
-        clone.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, -rot + ((90 * hitNumber) - 45)));
-        //clone.transform.localScale = new Vector3(1.0f + (float)(0.1f * Area), 1.0f + (float)(0.1f * Area));
-        clone.GetComponent<SwingOtherWay>().initAngle = -rot + ((90 * hitNumber) - 45);
-        clone.GetComponent<SwingOtherWay>().hitCount = hitNumber;
-        */
         float rot = Mathf.Atan2(a - pos.x, b - pos.y) * Mathf.Rad2Deg;
-        Debug.Log(EquippedWeapon);
         Player.GetComponent<WeaponOverseer>().BasicBackSwingAttack(EquippedWeapon, rot);
     }
     public void AddUpgrade(string name, int level)
     {
         //adds Level to the value of the string variable
-
+        level += 1;
         Debug.Log("upgrading stat " + name + " with level " + level);
         if (name == "Health") { Health += level; }
         if (name == "Haste") { attackSpeed += level; }
-        if (name == "Damage") { Damage += level; }
+        if (name == "Attack") { Damage += level; }
         if (name == "Speed") { Speed += level; }
         if (name == "Area") { Area += level; }
         //"Attack", "Speed", "Haste", "Health", "Area"

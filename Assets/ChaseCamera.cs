@@ -7,7 +7,7 @@ namespace UnityEngine.Localization
     public class ChaseCamera : MonoBehaviour
     {
         // Start is called before the first frame update
-        GameObject target;
+        public GameObject target;
         float destX;
         float destY;
         float distance;
@@ -18,7 +18,7 @@ namespace UnityEngine.Localization
             destX = target.transform.position.x;
             destY = target.transform.position.y;
             //place the camera on top of the target at the start
-            this.gameObject.transform.position = target.transform.position;
+            this.gameObject.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, -10);
         }
 
         // Update is called once per frame
@@ -32,7 +32,7 @@ namespace UnityEngine.Localization
 
             if (destX > this.gameObject.transform.position.x)
             {
-                this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x + (speed * Time.deltaTime), this.gameObject.transform.position.y);
+                this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x + (speed * Time.deltaTime), transform.position.y, transform.position.z);
             }
         }
     }
