@@ -44,7 +44,8 @@ namespace UnityEngine.Localization
                         damageNumber = Instantiate(child);
                         damageNumber.gameObject.SetActive(true);
                         damageNumber.transform.position = new Vector3(transform.position.x + UnityEngine.Random.Range(-0.5f, 0.5f), transform.position.y + UnityEngine.Random.Range(-0.5f, 0.5f), -1.0f);
-                        damageNumber.GetComponent<DamageNumbers>().Number = Random.Range(1,50);
+                        //this part can be changed to a value on the projectiles themselves
+                        damageNumber.GetComponent<DamageNumbers>().Number = GameObject.Find("Player").GetComponent<Move>().Damage;
                     }
 
                 }
