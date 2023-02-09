@@ -1,3 +1,4 @@
+using Codice.Client.BaseCommands;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ public class UpgradeCardBehavior : MonoBehaviour, IPointerEnterHandler, IPointer
     public string upgrade = "Blade";
 
     string[] listUpgradeNames = new string[] {"Attack", "Speed", "Haste", "Health", "Area"};
-
+    string[] listGoodUpgrades = new string[] { "Homing", };
     GameObject desc;
     GameObject cardname;
     public GameObject player;

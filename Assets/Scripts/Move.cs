@@ -2,6 +2,7 @@ using Codice.CM.Common;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Localization;
@@ -25,6 +26,12 @@ public class Move : MonoBehaviour
     public GameObject Player;
     public GameObject Swing;
     public GameObject OtherSwing;
+
+    // this is written to when the player picks up a new shiny upgrade that actually changes how the weapon is played.
+    //maybe should be a list
+    public string[] goodUpgrades = new string[3] { "0", "0", "0"};
+    public string[] possibleUpgrades = new string[6] { "1", "2", "3", "4", "5", "6" };
+    public string[] pickedUpgrades = new string[3] { "0", "0", "0" };
 
     Animator anim;
     //add specific weapon classes that are invoked using equippedWeapon.Primary or equippedWeapon.Secondary
@@ -69,6 +76,60 @@ public class Move : MonoBehaviour
     private void Start()
     {
         plr = GetComponent<Rigidbody2D>();
+        Debug.Log(goodUpgrades.Length);
+        RollSpecialUpgrades();
+    }
+    //for rolling special upgrades, make sure none of the rolled upgrades equal chosen upgrades
+    void RollSpecialUpgrades()
+    {
+        int roll1 = UnityEngine.Random.Range(0, 5);
+        int roll2 = UnityEngine.Random.Range(0, 5);
+        int roll3 = UnityEngine.Random.Range(0, 5);
+        //sets the numbers
+        goodUpgrades[0] = possibleUpgrades[roll1];
+        goodUpgrades[1] = possibleUpgrades[roll2];
+        goodUpgrades[2] = possibleUpgrades[roll3];
+        //checks for duplicates
+        for (int i = 0; i < goodUpgrades.Length; i++)
+        {
+            Debug.Log(i);
+            //checks slot 1 for dupes
+            if(i == 1)
+            {
+                while (goodUpgrades[i] == goodUpgrades[i - 1])
+                {
+                    var newNumber = UnityEngine.Random.Range(0, 5);
+                    if (newNumber != Int32.Parse(goodUpgrades[0]) 
+                        && newNumber != Int32.Parse(goodUpgrades[1]) 
+                        && newNumber != Int32.Parse(goodUpgrades[2])
+                        && newNumber != Int32.Parse(pickedUpgrades[0])
+                        && newNumber != Int32.Parse(pickedUpgrades[1])
+                        && newNumber != Int32.Parse(pickedUpgrades[2]))
+                    {
+                        goodUpgrades[i] = possibleUpgrades[newNumber];
+                    }
+                }
+                Debug.Log("current entry " + i + " is a duplicate of previous");
+            }
+            //checks slot 2 for dupes
+            else if (i == 2)
+            {
+                while (goodUpgrades[i] == goodUpgrades[i - 1] || goodUpgrades[i] == goodUpgrades[i - 2])
+                {
+                    var newNumber = UnityEngine.Random.Range(0, 5);
+                    if (newNumber != Int32.Parse(goodUpgrades[0])
+                        && newNumber != Int32.Parse(goodUpgrades[1])
+                        && newNumber != Int32.Parse(goodUpgrades[2])
+                        && newNumber != Int32.Parse(pickedUpgrades[0])
+                        && newNumber != Int32.Parse(pickedUpgrades[1])
+                        && newNumber != Int32.Parse(pickedUpgrades[2]))
+                    {
+                        goodUpgrades[i] = possibleUpgrades[newNumber];
+                    }
+                }
+            }
+        }
+        //put actual set here
     }
     //uses secondary attack
     void Launch(float a, float b, float power)
@@ -108,7 +169,11 @@ public class Move : MonoBehaviour
     //Update method
     void Update()
     {
-
+        //dubug re-run rolls
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            RollSpecialUpgrades();
+        }
         //Movement
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
