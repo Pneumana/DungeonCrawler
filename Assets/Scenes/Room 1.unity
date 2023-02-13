@@ -47357,10 +47357,21 @@ MonoBehaviour:
   Player: {fileID: 2130819120}
   Swing: {fileID: 405196334}
   OtherSwing: {fileID: 2130617754}
-  goodUpgrades:
-  - 
-  - 
-  - 
+  displayedUpgrades:
+  - 0
+  - 0
+  - 0
+  possibleUpgrades:
+  - was
+  - cras
+  - xxxxxx
+  - gffghh
+  - dddd
+  - llllll
+  pickedUpgrades:
+  - 0
+  - 0
+  - 0
   equippedWeapon: {fileID: 0}
   updater: {fileID: 1623172770}
   mouseX: 0
