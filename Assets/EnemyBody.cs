@@ -44,7 +44,8 @@ namespace UnityEngine.Localization
         private void OnCollisionEnter2D(Collision2D collision)
         {
             //calculate the angle at which the damage was recieved
-            var impactRot = Mathf.Rad2Deg * (collision.gameObject.transform.rotation.z);
+            //float impactRot = Mathf.Rad2Deg * (collision.gameObject.transform.rotation.z);
+            float impactRot = Random.Range(-180, 180);
             Debug.Log(impactRot);
             //checks if the player's objects are touching the enemy
             if(collision.gameObject.tag == "Player" && health > 0)
@@ -73,12 +74,18 @@ namespace UnityEngine.Localization
                     //searches for enemyTypeGib (slime)
                     if(child.name == enemyType + "Gib") 
                     {
+                        GameObject newparticle;
+                        newparticle = Instantiate(child);
+                        newparticle.gameObject.SetActive(true);
+                        newparticle.transform.position = transform.position;
+                        newparticle.transform.rotation = Quaternion.Euler(impactRot + 180, -90, 90);
+
                         ParticleSystem gib;
-                        gib = child.GetComponent<ParticleSystem>();
-                        gib.Stop();
-                        child.transform.position = transform.position;
-                        child.transform.rotation = Quaternion.Euler(impactRot + 180, -90, 90);
+                        gib = newparticle.GetComponent<ParticleSystem>();
                         gib.Play();
+                        var on = gib.emission;
+                        on.enabled = true;
+                        
                     }
                     
                 }

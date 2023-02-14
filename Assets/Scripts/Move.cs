@@ -31,7 +31,8 @@ public class Move : MonoBehaviour
     // this is written to when the player picks up a new shiny upgrade that actually changes how the weapon is played.
     //maybe should be a list
     public int[] displayedUpgrades = new int[3] { 0, 0, 0};
-    public string[] possibleUpgrades = new string[6] { "Homing", "Exploding", "Special", "Kills", "Superpower", "Wowzers" };
+    public int[] possibleUpgrades = new int[6] { 1, 2, 3, 4, 5, 6 };
+    //public string[] possibleUpgrades = new string[6] { "Homing", "Exploding", "Special", "Kills", "Superpower", "Wowzers" };
     public int[] pickedUpgrades = new int[3] { 0, 0, 0 };
 
     Animator anim;
@@ -80,20 +81,7 @@ public class Move : MonoBehaviour
         Debug.Log(displayedUpgrades.Length);
         RollSpecialUpgrades();
     }
-    int WeHateDupes()
-    {
-        var newNumber = UnityEngine.Random.Range(0, 5);
-        for(int i = 0; i < 3; i++)
-        {
-            Debug.Log("checking " + displayedUpgrades[i] + " and " + pickedUpgrades[i]);
-            while(newNumber != displayedUpgrades[i] && newNumber != pickedUpgrades[i])
-            {
-                return possibleUpgrades[newNumber];
-            }
-        }
-
-        return 0;
-    }
+   
     //for rolling special upgrades, make sure none of the rolled upgrades equal chosen upgrades
     void RollSpecialUpgrades()
     {
@@ -116,28 +104,28 @@ public class Move : MonoBehaviour
                 if (displayedUpgrades[i] == displayedUpgrades[i - 1])
                 {
                     Debug.Log("current entry " + i + " is a duplicate of previous");
-                    var newNum = WeHateDupes();
-                    displayedUpgrades[i] = newNum;
+                    //var newNum = WeHateDupes( i);
+                    //displayedUpgrades[i] = newNum;
                 }
             }
             //checks slot 2 for dupes
             else if (i == 2)
             {
-                while (displayedUpgrades[i] == displayedUpgrades[i - 1] || displayedUpgrades[i] == displayedUpgrades[i - 2])
+                if (displayedUpgrades[i] == displayedUpgrades[i - 1] || displayedUpgrades[i] == displayedUpgrades[i - 2])
                 {
                     Debug.Log("current entry " + i + " is a duplicate of previous");
-                    var newNum = WeHateDupes();
-                    displayedUpgrades[i] = newNum;
-                    /*var newNumber = UnityEngine.Random.Range(0, 5);
-                    if (newNumber != Int32.Parse(displayedUpgrades[0])
-                        && newNumber != Int32.Parse(displayedUpgrades[1])
-                        && newNumber != Int32.Parse(displayedUpgrades[2])
-                        && newNumber != Int32.Parse(pickedUpgrades[0])
-                        && newNumber != Int32.Parse(pickedUpgrades[1])
-                        && newNumber != Int32.Parse(pickedUpgrades[2]))
+                    //var newNum = WeHateDupes(i);
+                    //displayedUpgrades[i] = newNum;
+                    var newNumber = UnityEngine.Random.Range(0, 5);
+                    if (newNumber != displayedUpgrades[0]
+                        && newNumber != displayedUpgrades[1]
+                        && newNumber != displayedUpgrades[2]
+                        && newNumber != pickedUpgrades[0]
+                        && newNumber != pickedUpgrades[1]
+                        && newNumber != pickedUpgrades[2])
                     {
                         displayedUpgrades[i] = possibleUpgrades[newNumber];
-                    }*/
+                    }
                 }
             }
         }
