@@ -17,6 +17,8 @@ namespace UnityEngine.Localization
         public float spdPerLevel;
         public float dmgPerLevel;
 
+        public string[] effects;
+
         public string enemyType;
 
         public float speed;

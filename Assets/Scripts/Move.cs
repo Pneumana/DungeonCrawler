@@ -31,7 +31,7 @@ public class Move : MonoBehaviour
     // this is written to when the player picks up a new shiny upgrade that actually changes how the weapon is played.
     //maybe should be a list
     public int[] displayedUpgrades = new int[3] { 0, 0, 0};
-    public int[] possibleUpgrades = new int[6] { 1, 2, 3, 4, 5, 6 };
+    private int[] possibleUpgrades = new int[6] { 1, 2, 3, 4, 5, 6 };
     //public string[] possibleUpgrades = new string[6] { "Homing", "Exploding", "Special", "Kills", "Superpower", "Wowzers" };
     public int[] pickedUpgrades = new int[3] { 0, 0, 0 };
 
@@ -86,50 +86,6 @@ public class Move : MonoBehaviour
     void RollSpecialUpgrades()
     {
         
-        int roll1 = UnityEngine.Random.Range(0, 5);
-        int roll2 = UnityEngine.Random.Range(0, 5);
-        int roll3 = UnityEngine.Random.Range(0, 5);
-        //sets the numbers
-        //displayedUpgrades[0] = possibleUpgrades[roll1];
-        //displayedUpgrades[1] = possibleUpgrades[roll2];
-        //displayedUpgrades[2] = possibleUpgrades[roll3];
-        
-        //checks for duplicates
-        for (int i = 0; i < displayedUpgrades.Length; i++)
-        {
-            Debug.Log(i);
-            //checks slot 1 for dupes
-            if(i == 1)
-            {
-                if (displayedUpgrades[i] == displayedUpgrades[i - 1])
-                {
-                    Debug.Log("current entry " + i + " is a duplicate of previous");
-                    //var newNum = WeHateDupes( i);
-                    //displayedUpgrades[i] = newNum;
-                }
-            }
-            //checks slot 2 for dupes
-            else if (i == 2)
-            {
-                if (displayedUpgrades[i] == displayedUpgrades[i - 1] || displayedUpgrades[i] == displayedUpgrades[i - 2])
-                {
-                    Debug.Log("current entry " + i + " is a duplicate of previous");
-                    //var newNum = WeHateDupes(i);
-                    //displayedUpgrades[i] = newNum;
-                    var newNumber = UnityEngine.Random.Range(0, 5);
-                    if (newNumber != displayedUpgrades[0]
-                        && newNumber != displayedUpgrades[1]
-                        && newNumber != displayedUpgrades[2]
-                        && newNumber != pickedUpgrades[0]
-                        && newNumber != pickedUpgrades[1]
-                        && newNumber != pickedUpgrades[2])
-                    {
-                        displayedUpgrades[i] = possibleUpgrades[newNumber];
-                    }
-                }
-            }
-        }
-        //put actual set here
     }
     //uses secondary attack
     void Launch(float a, float b, float power)

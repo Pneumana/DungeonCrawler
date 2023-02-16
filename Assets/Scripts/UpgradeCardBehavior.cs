@@ -9,6 +9,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Components;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class UpgradeCardBehavior : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -16,13 +17,17 @@ public class UpgradeCardBehavior : MonoBehaviour, IPointerEnterHandler, IPointer
     private bool mouseOver = false;
     public int tier = 0;
     public int upgradeID = 0;
+    public int cardID = 0;
     public string upgrade = "Blade";
+
+    public Sprite[] sprites;
 
     string[] listUpgradeNames = new string[] {"Attack", "Speed", "Haste", "Health", "Area"};
     string[] listGoodUpgrades = new string[] { "Homing", };
     GameObject desc;
     GameObject cardname;
     GameObject image;
+    GameObject tierObj;
     public GameObject player;
 
     float scaleUp = 0.0f;
@@ -35,8 +40,7 @@ public class UpgradeCardBehavior : MonoBehaviour, IPointerEnterHandler, IPointer
         desc.GetComponent<TextMeshProUGUI>().text = "upgrade" + listUpgradeNames[upgradeID] + "_desc";
         cardname = card.transform.Find("CardName").gameObject;
         cardname.GetComponent<TextMeshProUGUI>().text = "upgrade" + listUpgradeNames[upgradeID];
-       
-        
+
         card.GetComponent<UpgradeCardBehavior>().tier = UnityEngine.Random.Range(0, 2);
         cardname.GetComponent<LocalizeStringEvent>().StringReference.TableEntryReference = cardname.GetComponent<TextMeshProUGUI>().text;
         desc.GetComponent<LocalizeStringEvent>().StringReference.TableEntryReference = desc.GetComponent<TextMeshProUGUI>().text;
@@ -45,7 +49,11 @@ public class UpgradeCardBehavior : MonoBehaviour, IPointerEnterHandler, IPointer
 
         image = card.transform.Find("Image").gameObject;
         string upgradeStringID = listUpgradeNames[upgradeID];
-        image.GetComponent<Image>().sprite = Resources.Load<Sprite>("Textures/" + upgradeStringID.ToLower() + "Up");
+        var newSprite = Resources.Load<Sprite>(upgradeStringID.ToLower() + "Up_" + upgradeID.ToString());
+        image.GetComponent<UnityEngine.UI.Image>().sprite = sprites[upgradeID];
+        Debug.Log("load sprite ");
+        tierObj = card.transform.Find("Tier").gameObject;
+        tierObj.GetComponent<TextMeshProUGUI>().text = (upgradeID + 1).ToString();
         //myStringReference.StringReference.TableEntryReference = "TEST";
         //LocalizedString localizedString = new LocalizedString(TableReference = "My String Table Collection", TableEntryReference = "My Text 1");
     }

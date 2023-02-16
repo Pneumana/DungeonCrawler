@@ -90,10 +90,7 @@ public class UIUpdater : MonoBehaviour
             cardname.GetComponent<TextMeshProUGUI>().color = new Color(1, 1, 1, 0);
             Player.GetComponent<Move>().disableInput = true;
             result = UnityEngine.Random.Range(0, 4).ToString();
-            //if (result == result0)
-            //{
-
-            //}
+            //make sure stuff is not duped.
             clone.GetComponent<UpgradeCardBehavior>().upgradeID = 2;
             Debug.Log("result " + i + " assigned ");
         }
