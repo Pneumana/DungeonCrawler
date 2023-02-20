@@ -14,6 +14,9 @@ public class UIUpdater : MonoBehaviour
 
     public GameObject card;
 
+    public List<int> numbers = new List<int>();
+    public int count = 3;
+    public int maxRange = 5;
 
     public float shakeAmp = 0;
     public float shakeTime  =0;
@@ -74,9 +77,25 @@ public class UIUpdater : MonoBehaviour
         string result2;
         string result0;
 
+        numbers.Clear();
+        //generate new numbers :D
+        for (int i = 0; i < count; i++)
+        {
+
+            int temp = Random.Range(0, maxRange);
+            while (numbers.Contains(temp))
+            {
+                temp = Random.Range(0, maxRange);
+            }
+
+            numbers.Add(temp);
+
+        }
+
         string result;
         for (int i = 0; i < 3; i++)
         {
+            //set the upgradeID of each card to numbers[i]
             GameObject desc;
             GameObject cardname;
             clone = Instantiate(card, transform);
