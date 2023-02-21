@@ -17,7 +17,7 @@ namespace UnityEngine.Localization
         {
             if (collision.gameObject.name == "Player")
             {
-                if (isSpecial == true) 
+                if (isSpecial == true && ui.pickeUpgrades.Count < 3) 
                 {
                     ui.SpawnSpecialUpgrades();
                 }

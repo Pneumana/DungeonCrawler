@@ -1,6 +1,7 @@
 using Mono.Cecil;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.UIElements;
@@ -130,18 +131,23 @@ public class UIUpdater : MonoBehaviour
 
         numbers.Clear();
         //generate new numbers :D
-        for (int i = 0; i < count; i++)
+        if (pickeUpgrades.Count < 3)
         {
-
-            int temp = Random.Range(0, maxRange);
-            while (numbers.Contains(temp) || pickeUpgrades.Contains(temp))
+            for (int i = 0; i < count; i++)
             {
-                temp = Random.Range(0, maxRange);
+
+                int temp = Random.Range(0, maxRange);
+                while (numbers.Contains(temp) || pickeUpgrades.Contains(temp))
+                {
+                    temp = Random.Range(0, maxRange);
+                }
+
+                numbers.Add(temp);
+
             }
-
-            numbers.Add(temp);
-
         }
+        else { Debug.Log("player has too many special upgrades, unable to apply more"); }
+        
 
         string result;
         for (int i = 0; i < 3; i++)
@@ -154,6 +160,7 @@ public class UIUpdater : MonoBehaviour
             clone.transform.SetParent(GameObject.Find("Canvas").gameObject.transform, false);
             clone.transform.position = new Vector3(((i * 150) - 150) + (Screen.width / 2), clone.transform.position.y);
             clone.GetComponent<Image>().sprite = altCard;
+            
             //change the sprite of the upgrade card to the enhanced one.
             desc = card.transform.Find("Description").gameObject;
             desc.GetComponent<TextMeshProUGUI>().color = new Color(1, 1, 1, 0);
@@ -167,6 +174,7 @@ public class UIUpdater : MonoBehaviour
             {
                 clone.GetComponent<UpgradeCardBehavior>().upgradeID = numbers[i];
                 Debug.Log("result " + i + " assigned ");
+                clone.GetComponent<UpgradeCardBehavior>().isSpecial = true;
             }
 
         }
