@@ -13,6 +13,7 @@ using UnityEngine.PlayerLoop;
     
     public GameObject ringGroup;
     public List<GameObject> ringPieces ;
+    public bool isSpecial;
 
     PlaceRingComponent childscript;
     //creates the game object when the player touches it.
@@ -26,6 +27,7 @@ using UnityEngine.PlayerLoop;
             upgrades = Instantiate(spawned);
             upgrades.SetActive(true);
             upgrades.transform.position = this.transform.position;
+            upgrades.GetComponent<TriggerUpgradeUI>().isSpecial = isSpecial;
             //update gameobject array
             biomeObject.GetComponent<SetBiomeLocations>().UpdateBiomeLocation();
             //for (int i = 0; i < ringGroup.transform.childCount; i++) { 

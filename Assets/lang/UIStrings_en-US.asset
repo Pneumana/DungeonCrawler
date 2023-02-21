@@ -59,6 +59,59 @@ MonoBehaviour:
     m_Localized: Increases size of attacks.
     m_Metadata:
       m_Items: []
+  - m_Id: 12964542625849344
+    m_Localized: Death Seekers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12964649702236160
+    m_Localized: Kills create vengeful spirits that seek out enemies and explode,
+      dealing damage.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12964930783518720
+    m_Localized: Scissor Style
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12964999372972032
+    m_Localized: Swing with both hands at a time. Lowers your attack speed.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12965310586134528
+    m_Localized: Penetrating Blade
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12965415074635776
+    m_Localized: Your sword's special pierces enemies and deals damage on return.
+      You can press RMB to recall it early.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12965696533405696
+    m_Localized: Holy Retribution
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12966491127521280
+    m_Localized: Taking damage empowers you for a short duration, causing you to
+      deal bonus damage. Killing an enemy grants a weaker version of empower.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12966860054306816
+    m_Localized: Smite
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12966986013450240
+    m_Localized: Enemies take an additional 3 damage whenever you damage them. This
+      damage is doubled if you are near a brazier or an altar.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12967245724753920
+    m_Localized: Deep Wounds
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12967374737350656
+    m_Localized: Every hit on an enemy makes the next attack deal 2 more damage.
+      This effect stacks with itself.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

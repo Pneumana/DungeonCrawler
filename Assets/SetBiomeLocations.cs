@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UIElements;
 using UnityEngine.XR;
 
@@ -17,6 +18,7 @@ namespace UnityEngine.Localization
         public int maxRange;
 
         public GameObject ringGroup;
+
 
         bool doublecheck;
 
@@ -97,8 +99,9 @@ namespace UnityEngine.Localization
                  (childscript.SpawnAngle + Random.Range(childscript.SpawnAngleOffset * -1, childscript.SpawnAngleOffset)) * (Mathf.PI / 180));
                  Debug.Log("child" + child.gameObject.name + " set to " + childscript.SpawnAngle + " with " + childscript.SpawnAngleOffset + " offset");
              }
-             
 
+            //update nav mesh
+            //Surface2D.UpdateNavMesh(Surface2D.navMeshData);
         }
 
         // Update is called once per frame

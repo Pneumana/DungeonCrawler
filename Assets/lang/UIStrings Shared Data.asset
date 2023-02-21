@@ -55,6 +55,54 @@ MonoBehaviour:
     m_Key: upgradeArea_desc
     m_Metadata:
       m_Items: []
+  - m_Id: 12964542625849344
+    m_Key: spGhosts
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12964649702236160
+    m_Key: spGhosts_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12964930783518720
+    m_Key: spScissor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12964999372972032
+    m_Key: spScissor_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12965310586134528
+    m_Key: spPiercing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12965415074635776
+    m_Key: spPiercing_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12965696533405696
+    m_Key: spTurnabout
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12966491127521280
+    m_Key: spTurnabout_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12966860054306816
+    m_Key: spCilla
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12966986013450240
+    m_Key: spCilla_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12967245724753920
+    m_Key: spDeepWounds
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12967374737350656
+    m_Key: spDeepWounds_desc
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

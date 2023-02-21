@@ -1,3 +1,4 @@
+using Mono.Cecil;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -15,6 +16,8 @@ public class UIUpdater : MonoBehaviour
     public GameObject card;
 
     public List<int> numbers = new List<int>();
+    public List<int> pickeUpgrades = new List<int>();
+    public Sprite altCard;
     public int count = 3;
     public int maxRange = 5;
 
@@ -109,9 +112,63 @@ public class UIUpdater : MonoBehaviour
             cardname.GetComponent<TextMeshProUGUI>().color = new Color(1, 1, 1, 0);
             Player.GetComponent<Move>().disableInput = true;
             result = UnityEngine.Random.Range(0, 4).ToString();
+
             //make sure stuff is not duped.
-            clone.GetComponent<UpgradeCardBehavior>().upgradeID = 2;
-            Debug.Log("result " + i + " assigned ");
+            if(clone.GetComponent<UpgradeCardBehavior>() != null)
+            {
+                clone.GetComponent<UpgradeCardBehavior>().upgradeID = numbers[i];
+                Debug.Log("result " + i + " assigned ");
+            }
+            
+        }
+    }
+    public void SpawnSpecialUpgrades()
+    {
+        GameObject clone;
+        //creates 3 UpgradeCard objects, positioning them from left to right
+        // in this function, add results and conditonals for new rolls not == results
+
+        numbers.Clear();
+        //generate new numbers :D
+        for (int i = 0; i < count; i++)
+        {
+
+            int temp = Random.Range(0, maxRange);
+            while (numbers.Contains(temp) || pickeUpgrades.Contains(temp))
+            {
+                temp = Random.Range(0, maxRange);
+            }
+
+            numbers.Add(temp);
+
+        }
+
+        string result;
+        for (int i = 0; i < 3; i++)
+        {
+            //set the upgradeID of each card to numbers[i]
+            GameObject desc;
+            GameObject cardname;
+            clone = Instantiate(card, transform);
+            clone.SetActive(true);
+            clone.transform.SetParent(GameObject.Find("Canvas").gameObject.transform, false);
+            clone.transform.position = new Vector3(((i * 150) - 150) + (Screen.width / 2), clone.transform.position.y);
+            clone.GetComponent<Image>().sprite = altCard;
+            //change the sprite of the upgrade card to the enhanced one.
+            desc = card.transform.Find("Description").gameObject;
+            desc.GetComponent<TextMeshProUGUI>().color = new Color(1, 1, 1, 0);
+            cardname = card.transform.Find("CardName").gameObject;
+            cardname.GetComponent<TextMeshProUGUI>().color = new Color(1, 1, 1, 0);
+            Player.GetComponent<Move>().disableInput = true;
+            result = UnityEngine.Random.Range(0, 4).ToString();
+
+            //make sure stuff is not duped.
+            if (clone.GetComponent<UpgradeCardBehavior>() != null)
+            {
+                clone.GetComponent<UpgradeCardBehavior>().upgradeID = numbers[i];
+                Debug.Log("result " + i + " assigned ");
+            }
+
         }
     }
     public void KillUpgrades()

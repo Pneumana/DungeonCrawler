@@ -7,6 +7,7 @@ namespace UnityEngine.Localization
     public class TriggerUpgradeUI : MonoBehaviour
     {
         public UIUpdater ui;
+        public bool isSpecial;
         // Start is called before the first frame update
         void Start()
         {
@@ -16,7 +17,14 @@ namespace UnityEngine.Localization
         {
             if (collision.gameObject.name == "Player")
             {
-                ui.SpawnUpgrades();
+                if (isSpecial == true) 
+                {
+                    ui.SpawnSpecialUpgrades();
+                }
+                if (isSpecial == false)
+                {
+                    ui.SpawnUpgrades();
+                }
                 Destroy(this.gameObject);
             }
         }

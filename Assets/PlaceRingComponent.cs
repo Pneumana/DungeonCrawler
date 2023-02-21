@@ -22,7 +22,7 @@ namespace UnityEngine.Localization
             else if (biome == "ruins") { SpawnAngle = GameObject.Find("Biomes").GetComponent<SetBiomeLocations>().ruinsAngle; }
             //if the object has a barrier wall piece, refresh it
             if (gameObject.GetComponent<BarrierWallBehavior>() != null) { gameObject.GetComponent<BarrierWallBehavior>().Refresh(); z = -4.0f;  }
-            this.gameObject.transform.position = new Vector3(Mathf.Floor(x - (Mathf.Sin(angle) * distance)), Mathf.Floor(y + (Mathf.Cos(angle) * distance)), z);
+            this.gameObject.transform.position = new Vector3((Mathf.Floor(x - (Mathf.Sin(angle) * distance))) +0.5f, (Mathf.Floor(y + (Mathf.Cos(angle) * distance))) + 0.5f, z);
         }
         // places the part at start
         void Start()

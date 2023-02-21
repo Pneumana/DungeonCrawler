@@ -34,14 +34,14 @@ public class UpgradeCardBehavior : MonoBehaviour, IPointerEnterHandler, IPointer
     // Start is called before the first frame update
     void Start()
     {
-        upgradeID = UnityEngine.Random.Range(0, 4);
+        //upgradeID = UnityEngine.Random.Range(0, 4);
         //add some sort of wait method either here or before the card spawns
         desc = card.transform.Find("Description").gameObject;
         desc.GetComponent<TextMeshProUGUI>().text = "upgrade" + listUpgradeNames[upgradeID] + "_desc";
         cardname = card.transform.Find("CardName").gameObject;
         cardname.GetComponent<TextMeshProUGUI>().text = "upgrade" + listUpgradeNames[upgradeID];
 
-        card.GetComponent<UpgradeCardBehavior>().tier = UnityEngine.Random.Range(0, 2);
+        card.GetComponent<UpgradeCardBehavior>().tier = 0;
         cardname.GetComponent<LocalizeStringEvent>().StringReference.TableEntryReference = cardname.GetComponent<TextMeshProUGUI>().text;
         desc.GetComponent<LocalizeStringEvent>().StringReference.TableEntryReference = desc.GetComponent<TextMeshProUGUI>().text;
         cardname.GetComponent<TextMeshProUGUI>().color = new Color(1, 1, 1, 1);
