@@ -70,7 +70,7 @@ namespace UnityEngine.Localization
             if(collision.gameObject.name == "Player")
             {
                 //hurt the player
-                collision.gameObject.GetComponent<Move>().Health -= 1;
+                collision.gameObject.GetComponent<Move>().TakeDamage(1, 0.25f);
                 Debug.Log("damaged player! health is now " + collision.gameObject.GetComponent<Move>().Health);
             }
         }

@@ -14,6 +14,9 @@ public class UIUpdater : MonoBehaviour
     public GameObject swordMask;
     public GameObject Player;
 
+    GameObject healthbar;
+    GameObject healthnumber;
+
     public GameObject card;
 
     public List<int> numbers = new List<int>();
@@ -29,6 +32,8 @@ public class UIUpdater : MonoBehaviour
     void Start()
     {
         xOffset = greyOut.transform.position.x;
+        healthbar = GameObject.Find("HealthBar");
+        healthnumber = GameObject.Find("HealthNumber");
         //use this function for when the player interracts with the upgrader
         //SpawnUpgrades();
     }
@@ -36,11 +41,17 @@ public class UIUpdater : MonoBehaviour
     {
       
     }
+    public void UpdateHealth()
+    {
+        var player = Player.GetComponent<Move>();
+        healthnumber.GetComponent<TextMeshProUGUI>().text = player.Health.ToString();
+        healthbar.transform.localScale = new Vector3(5.0f * (float)((float)player.Health / (float)player.MaxHealth), 0.5f);
+    }
     // Update is called once per frame
     void Update()
     {
         Vector3 pos;
-        
+        UpdateHealth();
         //Debug.Log("Desired position : " + (Player.GetComponent<Move>().charge/6.25f) * 100);
         if (Player.GetComponent<Move>().hasSword == true)
         {

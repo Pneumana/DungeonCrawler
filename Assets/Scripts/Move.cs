@@ -67,6 +67,7 @@ public class Move : MonoBehaviour
     public bool disableInput = false;
     //stats
     public int Health;
+    public int MaxHealth;
     public int Damage;
 
     public float IFrames;
@@ -121,7 +122,20 @@ public class Move : MonoBehaviour
         if (name == "Area") { Area += level; }
         //"Attack", "Speed", "Haste", "Health", "Area"
     }
-
+    public void TakeDamage(int value, float iframes)
+    {
+        if (value > 0 && IFrames <= 0) 
+        {
+            Health -= value;
+        }
+        if(value < 0)
+        {
+            Health -= value;
+        }
+        IFrames = iframes;
+        if(Health > MaxHealth) { Health = MaxHealth; }
+        if (Health < 0) { Health = 0; }
+    }
     //Update method
     void Update()
     {
@@ -143,6 +157,10 @@ public class Move : MonoBehaviour
         if (attackDelay >= 0)
         {
             attackDelay -= 1 * Time.deltaTime;
+        }
+        if(IFrames > 0)
+        {
+            IFrames -= 1 * Time.deltaTime;
         }
         if (disableInput == false){ 
         //restricts actions when the player starts charging up the sword throw.
