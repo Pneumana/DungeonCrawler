@@ -136,6 +136,7 @@ public class Move : MonoBehaviour
         if(Health > MaxHealth) { Health = MaxHealth; }
         if (Health < 0) { Health = 0; }
     }
+  
     //Update method
     void Update()
     {
