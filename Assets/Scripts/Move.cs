@@ -76,6 +76,8 @@ public class Move : MonoBehaviour
     public int Range;
     public int Duration;
 
+    public float empowerDuration;
+
     private void Start()
     {
         plr = GetComponent<Rigidbody2D>();
@@ -110,12 +112,13 @@ public class Move : MonoBehaviour
         float rot = Mathf.Atan2(a - pos.x, b - pos.y) * Mathf.Rad2Deg;
         Player.GetComponent<WeaponOverseer>().BasicBackSwingAttack(EquippedWeapon, rot);
     }
+
     public void AddUpgrade(string name, int level)
     {
         //adds Level to the value of the string variable
         level += 1;
         Debug.Log("upgrading stat " + name + " with level " + level);
-        if (name == "Health") { Health += level; }
+        if (name == "Health") { MaxHealth += level; Health = MaxHealth; }
         if (name == "Haste") { attackSpeed += level; }
         if (name == "Attack") { Damage += level; }
         if (name == "Speed") { Speed += level; }
@@ -163,6 +166,10 @@ public class Move : MonoBehaviour
         {
             IFrames -= 1 * Time.deltaTime;
         }
+        if(empowerDuration > 0)
+        {
+            empowerDuration -= 1 * Time.deltaTime;
+        }
         if (disableInput == false){ 
         //restricts actions when the player starts charging up the sword throw.
         if (isChargingUp == true)
@@ -194,13 +201,21 @@ public class Move : MonoBehaviour
                 if (hitCount < hitMax)
                 {
                     Attack(worldPosition.x, worldPosition.y, 0);
-                    isSwingin = true;
+                        if (updater.pickeUpgrades.Contains(1))
+                        {
+                            Attack1(worldPosition.x, worldPosition.y, 0);
+                        }
+                        isSwingin = true;
                     attackDelay = (baseAttackTime * (1.0f - (attackSpeed/10.0f))) * 0.50f;
                     hitCount += 1;
                 }
                 else
                 {
                     Attack1(worldPosition.x, worldPosition.y, 1);
+                        if (updater.pickeUpgrades.Contains(1))
+                        {
+                            Attack(worldPosition.x, worldPosition.y, 0);
+                        }
                     isSwingin = true;
                     attackDelay = (baseAttackTime * (1.0f - (attackSpeed/10.0f))) * 1.0f;
                     hitCount = 0;
@@ -214,8 +229,9 @@ public class Move : MonoBehaviour
             //secondary attack
             if (Input.GetKey(KeyCode.Mouse1) && isChargingUp == true && isSwingin == false)
             {
-                //charge sword throw
-                charge += chargeRate * Time.deltaTime;
+                    //charge sword throw
+                    if (!updater.pickeUpgrades.Contains(2)) { charge += chargeRate * Time.deltaTime; }
+                    else { charge += (chargeRate*2f) * Time.deltaTime; }
                 //throw overcharged sword
                 if (charge > chargeMax + 3)
                 {

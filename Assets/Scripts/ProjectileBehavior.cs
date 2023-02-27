@@ -21,6 +21,7 @@ public class ProjectileBehavior : MonoBehaviour
     public GameObject projectile;
     public GameObject spinner;
     public GameObject sword;
+    UIUpdater ui;
     //private GameObject light;
     public int rotation = 0;
     public bool real = false;
@@ -34,6 +35,7 @@ public class ProjectileBehavior : MonoBehaviour
         hitbox = GetComponent<CapsuleCollider2D>();
         //trail = GetComponent<TrailRenderer>();
         body.AddForce(transform.up * speed, ForceMode2D.Impulse);
+        ui = GameObject.Find("Canvas").GetComponent<UIUpdater>();
         //Set the speed of the GameObject
         //speed = 40.0f;
     }
@@ -49,23 +51,24 @@ public class ProjectileBehavior : MonoBehaviour
             Vector3 pos = transform.position;
             plr = GameObject.Find("Player");
             hitWall = true;
-            //this bit here makes the sword look at the player before spinning
-            //float rot = Mathf.Atan2(plr.transform.position.x - pos.x, plr.transform.position.y - pos.y) * Mathf.Rad2Deg;
-            //body.rotation = -rot;
-            //body.AddForce(transform.up * (10.0f), ForceMode2D.Impulse);
-            //body.drag = 1.0f;
-            //body.angularDrag = 1.0f;
-            //body.angularVelocity = 100.0f;
-
-            //trail.emitting = false;
+            
+            
         }
         if (collision.gameObject.tag == "Enemy" && hitWall == false)
         {
-            Debug.Log("Hit enemy " + collision.gameObject.name + " for " + (int)((plr.GetComponent<Move>().Damage + 3) * 1.5) + " damage");
+            //Debug.Log("Hit enemy " + collision.gameObject.name + " for " + (int)((plr.GetComponent<Move>().Damage + 3) * 1.5) + " damage");
         }
 
     }
-
+    void RecallSword()
+    {
+        plr = GameObject.Find("Player");
+        rtrnSword = Instantiate(sword);
+        rtrnSword.transform.position = transform.position;
+        rtrnSword.SetActive(true);
+        rtrnSword.transform.localScale = new Vector3(1.0f + (float)(0.1f * plr.GetComponent<Move>().Area), 1.0f + (float)(0.1f * plr.GetComponent<Move>().Area));
+        Destroy(projectile);
+    }
     // Update is called once per frame
     void Update()
     {
@@ -91,16 +94,14 @@ public class ProjectileBehavior : MonoBehaviour
                 //light.GetComponent<Light>().spotAngle = (floorAge / 1500) * 30;
             }
             //fires once
-            if (floorAge >= 10.0f)
+            if (floorAge >= 5.0f)
             {
-                plr = GameObject.Find("Player");
-                rtrnSword = Instantiate(sword);
-                rtrnSword.transform.position = transform.position;
-                rtrnSword.SetActive(true);
-                rtrnSword.transform.localScale = new Vector3(1.0f + (float)(0.1f * plr.GetComponent<Move>().Area), 1.0f + (float)(0.1f * plr.GetComponent<Move>().Area));
-                Destroy(projectile);
+                RecallSword();
             }
-            
+            if (Input.GetKeyDown(KeyCode.Mouse1) && ui.pickeUpgrades.Contains(2))
+            {
+                RecallSword();
+            }
 
         }
     }

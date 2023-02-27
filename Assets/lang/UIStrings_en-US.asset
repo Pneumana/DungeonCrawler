@@ -73,7 +73,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 12964999372972032
-    m_Localized: Swing with both hands at a time. Lowers your attack speed.
+    m_Localized: Swing with both hands at a time.
     m_Metadata:
       m_Items: []
   - m_Id: 12965310586134528
@@ -90,8 +90,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 12966491127521280
-    m_Localized: Taking damage empowers you for a short duration, causing you to
-      deal bonus damage. Killing an enemy grants a weaker version of empower.
+    m_Localized: Killing enemies empowers you. Nearby enemies take damage every second
+      while empowered.
     m_Metadata:
       m_Items: []
   - m_Id: 12966860054306816
@@ -99,8 +99,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 12966986013450240
-    m_Localized: Enemies take an additional 3 damage whenever you damage them. This
-      damage is doubled if you are near a brazier or an altar.
+    m_Localized: Enemies take an additional 1 damage whenever you damage them.
     m_Metadata:
       m_Items: []
   - m_Id: 12967245724753920

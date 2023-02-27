@@ -23,6 +23,7 @@ namespace UnityEngine.Localization
             projectile.transform.localScale = new Vector3(1.0f + (float)(0.1f * playerScript.Area), 1.0f + (float)(0.1f * (playerScript.Area + 1)));
             //somehow add function to swing projectiles to launch 
             projectile.GetComponent<SwingAttack>().SetStartingAngle(rotation);
+
         }
         public void BasicBackSwingAttack(string weaponName, float rotation)
         {

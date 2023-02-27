@@ -17,8 +17,8 @@ TagManager:
   - Walls
   - Pits
   - Particles
-  - EnemyProjectiles
-  - 
+  - Projectiles
+  - HitEnemies
   - 
   - 
   - 

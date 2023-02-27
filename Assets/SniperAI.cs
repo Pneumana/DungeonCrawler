@@ -43,7 +43,7 @@ namespace UnityEngine.Localization
             //get angle between player and enemy +- a bit
             //set new path destination to somewhere within the cos sin arc of the player's angle
             angle -= 180;
-            angle += Random.Range(-5,5);
+            angle += Random.Range(-5,5) * 180/Mathf.PI;
             var xTar = target.position.x + 11f *Mathf.Cos(angle);
             var yTar = target.position.y +  4f * Mathf.Sin(angle);
             agent.SetDestination(new Vector3(xTar,yTar));

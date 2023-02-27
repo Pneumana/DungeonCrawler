@@ -51,7 +51,7 @@ public class UpgradeCardBehavior : MonoBehaviour, IPointerEnterHandler, IPointer
             cardname.GetComponent<TextMeshProUGUI>().text = "sp" + listGoodUpgrades[upgradeID];
             image.GetComponent<UnityEngine.UI.Image>().sprite = specialSprites[upgradeID];
         }
-        else
+        if (isSpecial == false)
         {
             desc.GetComponent<TextMeshProUGUI>().text = "upgrade" + listUpgradeNames[upgradeID] + "_desc";
             cardname.GetComponent<TextMeshProUGUI>().text = "upgrade" + listUpgradeNames[upgradeID];
@@ -91,9 +91,10 @@ public class UpgradeCardBehavior : MonoBehaviour, IPointerEnterHandler, IPointer
                 if(isSpecial == true)
                 {
                     ui.pickeUpgrades.Add(upgradeID);
-                } 
+                }
+                if(isSpecial == false) { player.GetComponent<Move>().AddUpgrade(listUpgradeNames[upgradeID], tier); }
                 Debug.Log("Selected upgrade " + cardname + " with tier " + tier);
-                player.GetComponent<Move>().AddUpgrade(listUpgradeNames[upgradeID], tier);
+                
                 card.transform.parent.GetComponent<UIUpdater>().KillUpgrades();
             }
         }

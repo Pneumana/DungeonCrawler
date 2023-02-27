@@ -16,6 +16,7 @@ public class UIUpdater : MonoBehaviour
 
     GameObject healthbar;
     GameObject healthnumber;
+    GameObject enemynumber;
 
     public GameObject card;
 
@@ -24,6 +25,9 @@ public class UIUpdater : MonoBehaviour
     public Sprite altCard;
     public int count = 3;
     public int maxRange = 5;
+
+    public bool reUpdate;
+    //public GameObject[] enemies;
 
     public float shakeAmp = 0;
     public float shakeTime  =0;
@@ -34,13 +38,45 @@ public class UIUpdater : MonoBehaviour
         xOffset = greyOut.transform.position.x;
         healthbar = GameObject.Find("HealthBar");
         healthnumber = GameObject.Find("HealthNumber");
+        enemynumber = GameObject.Find("EnemyNumber");
         //use this function for when the player interracts with the upgrader
         //SpawnUpgrades();
+        UpdateEnemyNumber();
     }
     public void UpdateSword()
     {
       
     }
+
+    public void UpdateEnemyNumber(bool retry = true)
+    {
+        
+        GameObject[] enemies;
+        Debug.Log("new array");
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        int total = 0;
+        foreach(GameObject enemy in enemies)
+        {
+            if(enemy.name != "Missing (Game Object)") 
+            {
+                total += 1;
+            }
+            Debug.Log(enemy.name);
+
+        }
+        //include case for if there ar eno enemies
+        if (total == 1)
+        {
+            enemynumber.GetComponent<TextMeshProUGUI>().text = total.ToString() + " Enemy Remaining";
+        }
+        else 
+        {
+            enemynumber.GetComponent<TextMeshProUGUI>().text = total.ToString() + " Enemies Remaining";
+        }
+        if(retry == true) { reUpdate = true; }
+        
+    }
+
     public void UpdateHealth()
     {
         var player = Player.GetComponent<Move>();
@@ -52,6 +88,7 @@ public class UIUpdater : MonoBehaviour
     {
         Vector3 pos;
         UpdateHealth();
+        if (reUpdate == true) { UpdateEnemyNumber(false); reUpdate = false; }
         //Debug.Log("Desired position : " + (Player.GetComponent<Move>().charge/6.25f) * 100);
         if (Player.GetComponent<Move>().hasSword == true)
         {
@@ -147,10 +184,10 @@ public class UIUpdater : MonoBehaviour
             for (int i = 0; i < count; i++)
             {
 
-                int temp = Random.Range(0, maxRange);
+                int temp = Random.Range(0, 6);
                 while (numbers.Contains(temp) || pickeUpgrades.Contains(temp))
                 {
-                    temp = Random.Range(0, maxRange);
+                    temp = Random.Range(0, 6);
                 }
 
                 numbers.Add(temp);
@@ -178,7 +215,7 @@ public class UIUpdater : MonoBehaviour
             cardname = card.transform.Find("CardName").gameObject;
             cardname.GetComponent<TextMeshProUGUI>().color = new Color(1, 1, 1, 0);
             Player.GetComponent<Move>().disableInput = true;
-            result = UnityEngine.Random.Range(0, 4).ToString();
+            
 
             //make sure stuff is not duped.
             if (clone.GetComponent<UpgradeCardBehavior>() != null)
