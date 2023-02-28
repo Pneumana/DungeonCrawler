@@ -11,7 +11,7 @@ namespace UnityEngine.Localization
         // Start is called before the first frame update
         void Start()
         {
-        
+            if (isSpecial) { gameObject.GetComponent<SpriteRenderer>().color = new Color(0.95294117647f, 0.72156862745f, 0.09411764705f); }
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {

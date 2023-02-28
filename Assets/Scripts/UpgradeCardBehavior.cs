@@ -20,6 +20,8 @@ public class UpgradeCardBehavior : MonoBehaviour, IPointerEnterHandler, IPointer
     public int cardID = 0;
     public string upgrade = "Blade";
 
+    public float scaleMultiplier;
+
     public bool isSpecial;
 
     public Sprite[] sprites;
@@ -74,6 +76,7 @@ public class UpgradeCardBehavior : MonoBehaviour, IPointerEnterHandler, IPointer
         tierObj.GetComponent<TextMeshProUGUI>().text = (upgradeID + 1).ToString();
         //myStringReference.StringReference.TableEntryReference = "TEST";
         //LocalizedString localizedString = new LocalizedString(TableReference = "My String Table Collection", TableEntryReference = "My Text 1");
+        card.transform.localScale = new Vector3(scaleMultiplier * (1 + scaleUp), (scaleMultiplier * 2) * (1 + scaleUp), 1.0f);
     }
 
     // Update is called once per frame
@@ -83,7 +86,7 @@ public class UpgradeCardBehavior : MonoBehaviour, IPointerEnterHandler, IPointer
         {
             if (scaleUp < 0.2f)
             {
-                card.transform.localScale = new Vector3(1 * (1 + scaleUp), 2 * (1 + scaleUp), 1.0f);
+                card.transform.localScale = new Vector3(scaleMultiplier * (1 + scaleUp), (scaleMultiplier * 2) * (1 + scaleUp), 1.0f);
                 scaleUp += 1f * Time.deltaTime;
             }
             if (Input.GetKeyUp(KeyCode.Mouse0))
@@ -102,7 +105,7 @@ public class UpgradeCardBehavior : MonoBehaviour, IPointerEnterHandler, IPointer
         {
             if (scaleUp > 0f)
             {
-                card.transform.localScale = new Vector3(1 * (1 + scaleUp), 2 *(1 + scaleUp), 1.0f);
+                card.transform.localScale = new Vector3(scaleMultiplier * (1 + scaleUp), (scaleMultiplier * 2) *(1 + scaleUp), 1.0f);
                 scaleUp -= 1f * Time.deltaTime;
             }
         }

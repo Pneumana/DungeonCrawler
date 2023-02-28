@@ -6,6 +6,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.UIElements;
 using UnityEngine;
+using UnityEngine.Localization;
 using UnityEngine.UI;
 
 public class UIUpdater : MonoBehaviour
@@ -17,6 +18,7 @@ public class UIUpdater : MonoBehaviour
     GameObject healthbar;
     GameObject healthnumber;
     GameObject enemynumber;
+    GameObject winStatus;
     public int enemyTotal;
 
     public int waveCount;
@@ -42,6 +44,8 @@ public class UIUpdater : MonoBehaviour
         healthbar = GameObject.Find("HealthBar");
         healthnumber = GameObject.Find("HealthNumber");
         enemynumber = GameObject.Find("EnemyNumber");
+        winStatus = GameObject.Find("EndMessage");
+        winStatus.GetComponent<TextMeshProUGUI>().color = new Color(0f, 0f, 0, 0);
         //use this function for when the player interracts with the upgrader
         //SpawnUpgrades();
         UpdateEnemyNumber();
@@ -80,7 +84,18 @@ public class UIUpdater : MonoBehaviour
         if(retry == true) { reUpdate = true; }
         
     }
-
+    public void WinGame()
+    {
+        winStatus.GetComponent<TextMeshProUGUI>().text = "You defended the shrine!";
+        winStatus.GetComponent<TextMeshProUGUI>().color = new Color(0.95294117647f, 0.72156862745f, 0.09411764705f, 1);
+        Player.GetComponent<Move>().disableInput = true;
+    }
+    public void LoseGame()
+    {
+        winStatus.GetComponent<TextMeshProUGUI>().text = "The shrine falls to the invaders...";
+        winStatus.GetComponent<TextMeshProUGUI>().color = new Color(0.5f, 0, 0, 1);
+        Player.GetComponent<Move>().disableInput = true;
+    }
     public void UpdateHealth()
     {
         var player = Player.GetComponent<Move>();
@@ -157,7 +172,8 @@ public class UIUpdater : MonoBehaviour
             clone = Instantiate(card, transform);
             clone.SetActive(true);
             clone.transform.SetParent(GameObject.Find("Canvas").gameObject.transform, false);
-            clone.transform.position = new Vector3(((i * 150) - 150 ) + (Screen.width/2), clone.transform.position.y);
+            var scalear = clone.GetComponent<UpgradeCardBehavior>().scaleMultiplier;
+            clone.transform.position = new Vector3(((i * (150 * scalear)) - (150 * scalear)) + (Screen.width/2), clone.transform.position.y);
             
             desc = card.transform.Find("Description").gameObject;
             desc.GetComponent<TextMeshProUGUI>().color = new Color(1,1,1,0);
@@ -210,7 +226,8 @@ public class UIUpdater : MonoBehaviour
             clone = Instantiate(card, transform);
             clone.SetActive(true);
             clone.transform.SetParent(GameObject.Find("Canvas").gameObject.transform, false);
-            clone.transform.position = new Vector3(((i * 150) - 150) + (Screen.width / 2), clone.transform.position.y);
+            var scalear = clone.GetComponent<UpgradeCardBehavior>().scaleMultiplier;
+            clone.transform.position = new Vector3(((i * (150 * scalear)) - (150 * scalear)) + (Screen.width / 2), clone.transform.position.y);
             clone.GetComponent<Image>().sprite = altCard;
             
             //change the sprite of the upgrade card to the enhanced one.
@@ -244,6 +261,7 @@ public class UIUpdater : MonoBehaviour
             
         }
         Player.GetComponent<Move>().disableInput = false;
+        GameObject.Find("EnemySpawner").GetComponent<EnemySpawner>().ReEnableSpawning();
         //loop for each child Card and kill them
         //Destroy(card);
 

@@ -68,15 +68,31 @@ namespace UnityEngine.Localization
         void Update()
         {
             //the sniper wants to move close to the player, but not too close.
-            if (agent.destination.x < gameObject.transform.position.x)
+            if (shotCharge <= 0)
             {
-                //look left
-                this.gameObject.GetComponent<SpriteRenderer>().flipX = false;
+                if (agent.destination.x < gameObject.transform.position.x)
+                {
+                    //look left
+                    this.gameObject.GetComponent<SpriteRenderer>().flipX = false;
+                }
+                else
+                {
+                    //look right
+                    this.gameObject.GetComponent<SpriteRenderer>().flipX = true;
+                }
             }
-            else
+            else 
             {
-                //look right
-                this.gameObject.GetComponent<SpriteRenderer>().flipX = true;
+                if (player.transform.position.x < gameObject.transform.position.x)
+                {
+                    //look left
+                    this.gameObject.GetComponent<SpriteRenderer>().flipX = false;
+                }
+                else
+                {
+                    //look right
+                    this.gameObject.GetComponent<SpriteRenderer>().flipX = true;
+                }
             }
             pathAge += 1.0f * Time.deltaTime;
             //updates path when it reaches its target.

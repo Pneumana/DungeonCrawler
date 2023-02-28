@@ -12,6 +12,8 @@ namespace UnityEngine.Localization
 
         public int NumberToSpawn;
 
+        public bool allowed;
+
         GameObject player;
         public GameObject[] spawnableEnemies;
 
@@ -32,6 +34,12 @@ namespace UnityEngine.Localization
             agent.SetDestination(new Vector3(xTar, yTar));
             //spawn a new enemy here
         }
+
+        public void ReEnableSpawning()
+        {
+            allowed = true;
+            NumberToSpawn = Random.Range(2, 6);
+        }
         // Update is called once per frame
         void Update()
         {
@@ -49,9 +57,10 @@ namespace UnityEngine.Localization
                     Debug.Log("spawned new " + newenemy.name);
                     ui.UpdateEnemyNumber();
                 }
+                if(NumberToSpawn == 0) { allowed = false; }
             }
             //Allows the game to spawn more enemies needs to wait until the player pickes an upgrade.
-            if(NumberToSpawn == 0 && ui.enemyTotal == 0 && !player.GetComponent<Move>().disableInput)
+            if(NumberToSpawn == 0 && ui.enemyTotal == 0 && allowed)
             {
                 NumberToSpawn = Random.Range(2, 6);
             }

@@ -17,11 +17,11 @@ public class Move : MonoBehaviour
     //is the player charging their sword throw? used for stopping movement
     private bool isChargingUp = false;
     //how fast the sword is readied
-    public float chargeRate = 2.0f;
+    public float chargeRate = 6.0f;
     //the sword's curent charge
     public float charge = 0.0f;
     //number required before the launch event is fired
-    public float chargeMax = 1.25f;
+    public float chargeMax = 0.5f;
     Rigidbody2D plr;
     public GameObject Projectile;
     public GameObject Player;
@@ -75,6 +75,8 @@ public class Move : MonoBehaviour
     public int Speed;
     public int Range;
     public int Duration;
+    public int Evasion;
+    public int Siphon;
 
     public float empowerDuration;
 
@@ -123,6 +125,10 @@ public class Move : MonoBehaviour
         if (name == "Attack") { Damage += level; }
         if (name == "Speed") { Speed += level; }
         if (name == "Area") { Area += level; }
+        //new
+        if (name == "Evasion") { Evasion += level; }
+        if (name == "Siphon") { Siphon += level; }
+        if (name == "Duration") { Duration += level; }
         //"Attack", "Speed", "Haste", "Health", "Area"
     }
     public void TakeDamage(int value, float iframes)
@@ -130,14 +136,16 @@ public class Move : MonoBehaviour
         if (value > 0 && IFrames <= 0) 
         {
             Health -= value;
+            IFrames += iframes + (0.5f * Evasion);
         }
         if(value < 0)
         {
             Health -= value;
         }
-        IFrames = iframes;
+        
         if(Health > MaxHealth) { Health = MaxHealth; }
         if (Health < 0) { Health = 0; }
+        if(Health == 0) { updater.LoseGame(); }
     }
   
     //Update method

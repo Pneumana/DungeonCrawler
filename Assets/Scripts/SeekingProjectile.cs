@@ -24,6 +24,8 @@ namespace UnityEngine.Localization
             if (isEnemy == false)
             {
                 GetClosestEnemy();
+                GameObject player = GameObject.Find("Player");
+                this.gameObject.transform.localScale = new Vector3(1.0f + (player.GetComponent<Move>().Area * 0.1f), 1.0f + (player.GetComponent<Move>().Area * 0.1f));
             }
             else 
             {

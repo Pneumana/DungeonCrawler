@@ -38,16 +38,16 @@ namespace UnityEngine.Localization
         // Start is called before the first frame update
         void Start()
         {
-            SetStats();
             ui = GameObject.Find("Canvas").GetComponent<UIUpdater>();
             player = GameObject.Find("Player").GetComponent<Move>();
             dWSprite = Resources.Load("Textures/deepwounds") as Sprite;
             basicUpgrades = GameObject.Find("Weird Particles").transform.Find("TriggerUpgrade").transform.gameObject;
+            SetStats();
         }
         void SetStats()
         {
             //multiply hpPerLevel by the wave/level number
-            health = maxHealth + (hpPerLevel);
+            health = maxHealth + (hpPerLevel * ui.waveCount);
         }
         // Update is called once per frame
         void Update()
@@ -77,6 +77,8 @@ namespace UnityEngine.Localization
         void Kill()
         {
             var startingpos = this.gameObject.transform.position;
+            GameObject spawnme;
+            spawnme = GameObject.Find("Weird Particles").transform.Find("TriggerUpgrade").transform.gameObject;
             Destroy(gameObject);
             //do other on kill effects here.
             if (ui.pickeUpgrades.Contains(0))
@@ -96,19 +98,32 @@ namespace UnityEngine.Localization
             if (ui.enemyTotal == 1 || ui.enemyTotal == 0)
             {
                 GameObject newUpgrade;
-                newUpgrade = Instantiate(basicUpgrades);
+                newUpgrade = Instantiate(spawnme);
                 newUpgrade.transform.position = startingpos;
                 newUpgrade.SetActive(true);
+                player.TakeDamage(-1, 0);
+                ui.waveCount += 1;
                 if (ui.waveCount > 0)
                 {
-                    if (ui.waveCount % 3 == 0)
+                    Debug.Log("Starting wave " + ui.waveCount);
+                    //gives you 3 normal upgrades before you get a special
+                    if(ui.waveCount >= 16)
                     {
-                        newUpgrade.GetComponent<SpawnUpgrade>().isSpecial = true;
+                        Debug.Log("Player won! Hooray!");
+                        ui.WinGame();
+                    }
+                    else if (ui.waveCount % 4 == 0)
+                    {
+                        newUpgrade.GetComponent<TriggerUpgradeUI>().isSpecial = true;
                     }
                 }
             }
             //roll for siphon healing here
-
+            int roll = Random.Range(0, 9);
+            if(roll < player.Siphon)
+            {
+                player.TakeDamage(-1, 0);
+            }
             //spawn corpse here too
             ui.UpdateEnemyNumber();
         }
@@ -161,7 +176,8 @@ namespace UnityEngine.Localization
             }
             if(this.gameObject.GetComponent<SniperAI>() != null)
             {
-                this.gameObject.GetComponent<SniperAI>().abilityCD = 0;
+                this.gameObject.GetComponent<SniperAI>().abilityCD = 1;
+                this.gameObject.GetComponent<SniperAI>().shotCharge = 0;
             }
         }
 

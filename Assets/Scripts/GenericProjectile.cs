@@ -20,7 +20,10 @@ namespace UnityEngine.Localization
         {
             body = GetComponent<Rigidbody2D>();
             body.AddForce(transform.up * speed, ForceMode2D.Impulse);
-            this.gameObject.transform.localScale = new Vector3(1.0f + (player.GetComponent<Move>().Area * 0.1f),1.0f + (player.GetComponent<Move>().Area * 0.1f));
+            if (!isEnemy)
+            {
+                this.gameObject.transform.localScale = new Vector3(1.0f + (player.GetComponent<Move>().Area * 0.1f), 1.0f + (player.GetComponent<Move>().Area * 0.1f));
+            }
             Debug.Log("staring movement");
             player = GameObject.Find("Player");
         }
