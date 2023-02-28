@@ -103,6 +103,30 @@ MonoBehaviour:
     m_Key: spDeepWounds_desc
     m_Metadata:
       m_Items: []
+  - m_Id: 15320996783562752
+    m_Key: upgradeEvasion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15320998582919168
+    m_Key: upgradeEvasion_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15321005532880896
+    m_Key: upgradeSiphon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15321006405296128
+    m_Key: upgradeSiphon_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15321421570088960
+    m_Key: upgradeDuration
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15321423818235904
+    m_Key: upgradeDuration_desc
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -34,6 +34,7 @@ namespace UnityEngine.Localization
         bool debounce;
         Sprite dWSprite;
         GameObject debuff;
+        public GameObject basicUpgrades;
         // Start is called before the first frame update
         void Start()
         {
@@ -41,7 +42,7 @@ namespace UnityEngine.Localization
             ui = GameObject.Find("Canvas").GetComponent<UIUpdater>();
             player = GameObject.Find("Player").GetComponent<Move>();
             dWSprite = Resources.Load("Textures/deepwounds") as Sprite;
-            
+            basicUpgrades = GameObject.Find("Weird Particles").transform.Find("TriggerUpgrade").transform.gameObject;
         }
         void SetStats()
         {
@@ -91,13 +92,30 @@ namespace UnityEngine.Localization
             {
                 player.empowerDuration += 3f + (player.Duration * 1.0f);
             }
+            //spawn upgrades if this is the last enemy
+            if (ui.enemyTotal == 1 || ui.enemyTotal == 0)
+            {
+                GameObject newUpgrade;
+                newUpgrade = Instantiate(basicUpgrades);
+                newUpgrade.transform.position = startingpos;
+                newUpgrade.SetActive(true);
+                if (ui.waveCount > 0)
+                {
+                    if (ui.waveCount % 3 == 0)
+                    {
+                        newUpgrade.GetComponent<SpawnUpgrade>().isSpecial = true;
+                    }
+                }
+            }
+            //roll for siphon healing here
+
             //spawn corpse here too
             ui.UpdateEnemyNumber();
         }
 
         public void TakeDamage(int damage, bool isBonus = false)
         {
-            if (ui.pickeUpgrades.Contains(5)) { deepWounds += 1; }
+            
             for (int i = 0; i < GameObject.Find("Weird Particles").gameObject.transform.childCount; i++)
             {
                 GameObject child = GameObject.Find("Weird Particles").gameObject.transform.GetChild(i).gameObject;
@@ -134,11 +152,16 @@ namespace UnityEngine.Localization
                 }
 
             }
+            if (ui.pickeUpgrades.Contains(5)) { deepWounds += 1; }
             if (isBonus == false)
             {
                 if (ui.pickeUpgrades.Contains(4)) { TakeDamage(1, true); }
                 isBonus = true;
                 
+            }
+            if(this.gameObject.GetComponent<SniperAI>() != null)
+            {
+                this.gameObject.GetComponent<SniperAI>().abilityCD = 0;
             }
         }
 

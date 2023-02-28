@@ -17,6 +17,9 @@ public class UIUpdater : MonoBehaviour
     GameObject healthbar;
     GameObject healthnumber;
     GameObject enemynumber;
+    public int enemyTotal;
+
+    public int waveCount;
 
     public GameObject card;
 
@@ -73,6 +76,7 @@ public class UIUpdater : MonoBehaviour
         {
             enemynumber.GetComponent<TextMeshProUGUI>().text = total.ToString() + " Enemies Remaining";
         }
+        enemyTotal = total;
         if(retry == true) { reUpdate = true; }
         
     }
@@ -133,11 +137,11 @@ public class UIUpdater : MonoBehaviour
         //generate new numbers :D
         for (int i = 0; i < count; i++)
         {
-
-            int temp = Random.Range(0, maxRange);
+            //maxRange should be the length of the UpgradeCardBehaviors listUpgradeNames[]
+            int temp = Random.Range(0, 7);
             while (numbers.Contains(temp))
             {
-                temp = Random.Range(0, maxRange);
+                temp = Random.Range(0, 7);
             }
 
             numbers.Add(temp);

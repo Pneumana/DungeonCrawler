@@ -25,7 +25,7 @@ public class UpgradeCardBehavior : MonoBehaviour, IPointerEnterHandler, IPointer
     public Sprite[] sprites;
     public Sprite[] specialSprites;
 
-    string[] listUpgradeNames = new string[] {"Attack", "Speed", "Haste", "Health", "Area"};
+    string[] listUpgradeNames = new string[] {"Attack", "Speed", "Haste", "Health", "Area", "Evasion", "Siphon", "Duration"};
     string[] listGoodUpgrades = new string[] { "Ghosts", "Scissor", "Piercing", "Turnabout", "Cilla", "DeepWounds"};
     GameObject desc;
     GameObject cardname;

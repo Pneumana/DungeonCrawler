@@ -25,7 +25,7 @@ public class ProjectileBehavior : MonoBehaviour
     //private GameObject light;
     public int rotation = 0;
     public bool real = false;
-    bool hitWall = false;
+    public bool hitWall = false;
     private Vector2 worldPosition = Vector2.zero;
     // Start is called before the first frame update
     void Start()
@@ -56,7 +56,10 @@ public class ProjectileBehavior : MonoBehaviour
         }
         if (collision.gameObject.tag == "Enemy" && hitWall == false)
         {
-            //Debug.Log("Hit enemy " + collision.gameObject.name + " for " + (int)((plr.GetComponent<Move>().Damage + 3) * 1.5) + " damage");
+            this.gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+            Vector3 pos = transform.position;
+            plr = GameObject.Find("Player");
+            hitWall = true;
         }
 
     }
@@ -87,7 +90,7 @@ public class ProjectileBehavior : MonoBehaviour
             if (hitWall == true)
             {
                 this.gameObject.GetComponent<CapsuleCollider2D>().isTrigger = true;
-                
+                gameObject.layer = 7;
                 floorAge += 1 * Time.deltaTime;
                 body.rotation += (Mathf.Max(1000.0f - floorAge, 0)) * Time.deltaTime;
                 //light = projectile.transform.Find("Glow").gameObject;

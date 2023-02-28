@@ -286,5 +286,15 @@ public class Move : MonoBehaviour
             Destroy(collision.gameObject);
             updater.UpdateSword();
         }
+        if(collision.name == "SpecialSword(Clone)" && collision.GetComponent<ProjectileBehavior>() != null)
+        {
+            if (collision.GetComponent<ProjectileBehavior>().hitWall == true)
+            {
+                Debug.Log("Player picks up sword");
+                hasSword = true;
+                Destroy(collision.gameObject);
+                updater.UpdateSword();
+            }
+        }
     }
 }
