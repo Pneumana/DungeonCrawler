@@ -41,7 +41,7 @@ namespace UnityEngine.Localization
             }
             if (collision.gameObject.name == "Player" && isEnemy)
             {
-                player.GetComponent<Move>().TakeDamage(1, 0.25f);
+                player.GetComponent<Move>().TakeDamage(1, 1f);
                 Destroy(this.gameObject);
             }
         }

@@ -101,7 +101,7 @@ namespace UnityEngine.Localization
                 newUpgrade = Instantiate(spawnme);
                 newUpgrade.transform.position = startingpos;
                 newUpgrade.SetActive(true);
-                player.TakeDamage(-1, 0);
+                //player.TakeDamage(-1, 0);
                 ui.waveCount += 1;
                 if (ui.waveCount > 0)
                 {
@@ -119,12 +119,7 @@ namespace UnityEngine.Localization
                     if (player.freeplay) { ui.freePlayWaves += 1; }
                 }
             }
-            //roll for siphon healing here
-            int roll = Random.Range(0, 9);
-            if(roll < player.Siphon)
-            {
-                player.TakeDamage(-1, 0);
-            }
+            if (player.Health <= 1 && player.Siphon > 0) { player.Health += 1; }
             //spawn corpse here too
             ui.UpdateEnemyNumber();
         }

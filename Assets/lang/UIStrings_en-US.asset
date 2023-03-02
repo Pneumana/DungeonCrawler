@@ -120,7 +120,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 15321006405296128
-    m_Localized: Increaes the chance to recover health on kill.
+    m_Localized: Reduces health drain. Allows you to heal when on low health.
     m_Metadata:
       m_Items: []
   - m_Id: 15321005532880896

@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.Localization;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
 public class UIUpdater : MonoBehaviour
@@ -106,13 +107,22 @@ public class UIUpdater : MonoBehaviour
     {
         var player = Player.GetComponent<Move>();
         healthnumber.GetComponent<TextMeshProUGUI>().text = player.Health.ToString();
-        healthbar.transform.localScale = new Vector3(5.0f * (float)((float)player.Health / (float)player.MaxHealth), 0.5f);
+        if (healthbar.transform.localScale.x > 5.0f * (float)((float)player.Health / (float)player.MaxHealth))
+        {
+            //use siphon to drain health slower
+            healthbar.transform.localScale = new Vector3(healthbar.transform.localScale.x - (Mathf.Max((5f - (0.1f * player.Evasion)), 0.25f) * Time.deltaTime), 0.5f);
+        }
+        if (healthbar.transform.localScale.x < 5.0f * (float)((float)player.Health / (float)player.MaxHealth)) {
+            healthbar.transform.localScale = new Vector3(5.0f * (float)((float)player.Health / (float)player.MaxHealth), 0.5f);
+        }
+        
     }
     // Update is called once per frame
     void Update()
     {
         Vector3 pos;
         UpdateHealth();
+        var scalear = Screen.width / this.gameObject.GetComponent<CanvasScaler>().referenceResolution.x;
         if (reUpdate == true) { UpdateEnemyNumber(false); reUpdate = false; }
         //Debug.Log("Desired position : " + (Player.GetComponent<Move>().charge/6.25f) * 100);
         if (Player.GetComponent<Move>().hasSword == true)
@@ -132,7 +142,7 @@ public class UIUpdater : MonoBehaviour
                 shakeAmp += 3.3f * Time.deltaTime;
             }
             shakeTime += 0.1f;
-            greyOut.transform.position = new Vector3((Mathf.Sin(shakeTime) * shakeAmp) + xOffset, greyOut.transform.position.y, 0.0f);
+            greyOut.transform.position = new Vector3(((Mathf.Sin(shakeTime) * shakeAmp) * scalear) + xOffset, greyOut.transform.position.y, 0.0f);
                 
         }
         if (Player.GetComponent<Move>().charge == 0)
@@ -142,7 +152,9 @@ public class UIUpdater : MonoBehaviour
             greyOut.transform.position = new Vector3(xOffset, greyOut.transform.position.y, 0.0f);
         }
         pos = greyOut.transform.position;
-        swordMask.transform.position = new Vector3(pos.x, greyOut.transform.position.y + (Mathf.Min(((Player.GetComponent<Move>().charge / Player.GetComponent<Move>().chargeMax) * 50.0f), 50.0f) - 50.0f), 0.0f);
+        if (healthbar.transform.localScale.x <= 0 && Player.GetComponent<Move>().Health == 0) { LoseGame(); }
+
+        swordMask.transform.position = new Vector3(pos.x, greyOut.transform.position.y + (((Mathf.Min(((Player.GetComponent<Move>().charge / Player.GetComponent<Move>().chargeMax) * 50.0f), 50.0f)) - 50.0f) * scalear), 0.0f);
     }
 
     public void SpawnUpgrades()
@@ -178,7 +190,8 @@ public class UIUpdater : MonoBehaviour
             clone = Instantiate(card, transform);
             clone.SetActive(true);
             clone.transform.SetParent(GameObject.Find("Canvas").gameObject.transform, false);
-            var scalear = clone.GetComponent<UpgradeCardBehavior>().scaleMultiplier;
+            var scalear = this.gameObject.GetComponent<CanvasScaler>().scaleFactor;
+            scalear = Screen.width / this.gameObject.GetComponent<CanvasScaler>().referenceResolution.x;
             clone.transform.position = new Vector3(((i * (150 * scalear)) - (150 * scalear)) + (Screen.width/2), clone.transform.position.y);
             
             desc = card.transform.Find("Description").gameObject;
@@ -233,6 +246,7 @@ public class UIUpdater : MonoBehaviour
             clone.SetActive(true);
             clone.transform.SetParent(GameObject.Find("Canvas").gameObject.transform, false);
             var scalear = this.GetComponent<CanvasScaler>().scaleFactor;
+            scalear = Screen.width / this.gameObject.GetComponent<CanvasScaler>().referenceResolution.x;
             clone.transform.position = new Vector3(((i * (150 * scalear)) - (150 * scalear)) + (Screen.width / 2), clone.transform.position.y);
             clone.GetComponent<Image>().sprite = altCard;
             

@@ -1,5 +1,6 @@
 using Codice.Client.BaseCommands;
 using Codice.CM.Common;
+using Codice.CM.WorkspaceServer.Tree.GameUI.Checkin.Updater;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -80,6 +81,8 @@ public class Move : MonoBehaviour
 
     public bool freeplay;
 
+    public float iframetoggle;
+    bool isVisible;
     public float empowerDuration;
 
     private void Start()
@@ -133,7 +136,7 @@ public class Move : MonoBehaviour
         if (name == "Duration") { Duration += level; }
         //"Attack", "Speed", "Haste", "Health", "Area"
     }
-    public void TakeDamage(int value, float iframes)
+    public void TakeDamage(int value, float iframes = 1f)
     {
         if (value > 0 && IFrames <= 0) 
         {
@@ -147,7 +150,7 @@ public class Move : MonoBehaviour
         
         if(Health > MaxHealth) { Health = MaxHealth; }
         if (Health < 0) { Health = 0; }
-        if(Health == 0) { updater.LoseGame(); }
+        
     }
   
     //Update method
@@ -172,10 +175,27 @@ public class Move : MonoBehaviour
         {
             attackDelay -= 1 * Time.deltaTime;
         }
+        //decays iframes
         if(IFrames > 0)
         {
+            //flicker the player if they have iframes
             IFrames -= 1 * Time.deltaTime;
+            
+            if (iframetoggle > 0.1f && isVisible == true) 
+            { 
+                iframetoggle = 0;
+                gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.0f); isVisible = false;
+            }
+            if (iframetoggle > 0.1f && isVisible == false)
+            {
+                iframetoggle = 0;
+                gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1); isVisible = true;
+            }
         }
+        if(iframetoggle < 0.1f) { iframetoggle += 1 * Time.deltaTime; }
+        //makes the player visible if there are no iframes
+        if (IFrames <= 0 && isVisible == false) { gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1); isVisible = true; }
+        //decays empower duration
         if(empowerDuration > 0)
         {
             empowerDuration -= 1 * Time.deltaTime;
@@ -200,15 +220,18 @@ public class Move : MonoBehaviour
                 charge = 0;
             }
         }
+
+
         //Lets the player weapon actions
-        if (hasSword == true && attackDelay <= 0)
+        if (hasSword == true)
         {
+                
             //basic attack
-            if (Input.GetKey(KeyCode.Mouse0) && isChargingUp == false && isSwingin == false)
+            if (Input.GetKey(KeyCode.Mouse0) && isChargingUp == false )
             {
 
 
-                if (hitCount < hitMax)
+                if (hitCount == 0 && attackDelay <= 0)
                 {
                     Attack(worldPosition.x, worldPosition.y, 0);
                         if (updater.pickeUpgrades.Contains(1))
@@ -219,12 +242,25 @@ public class Move : MonoBehaviour
                     attackDelay = (baseAttackTime * (1.0f - (attackSpeed/10.0f))) * 0.50f;
                     hitCount += 1;
                 }
-                else
-                {
-                    Attack1(worldPosition.x, worldPosition.y, 1);
+                if (hitCount == 1 && attackDelay <= 0)
+                    {
+                        Attack1(worldPosition.x, worldPosition.y, 0);
                         if (updater.pickeUpgrades.Contains(1))
                         {
                             Attack(worldPosition.x, worldPosition.y, 0);
+                        }
+                        isSwingin = true;
+                        attackDelay = (baseAttackTime * (1.0f - (attackSpeed / 10.0f))) * 0.50f;
+                        hitCount += 1;
+                    }
+
+                if (hitCount == 2 && attackDelay <= 0)
+                {
+
+                    Attack(worldPosition.x, worldPosition.y, 1);
+                        if (updater.pickeUpgrades.Contains(1))
+                        {
+                            Attack1(worldPosition.x, worldPosition.y, 0);
                         }
                     isSwingin = true;
                     attackDelay = (baseAttackTime * (1.0f - (attackSpeed/10.0f))) * 1.0f;
