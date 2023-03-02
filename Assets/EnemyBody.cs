@@ -47,7 +47,7 @@ namespace UnityEngine.Localization
         void SetStats()
         {
             //multiply hpPerLevel by the wave/level number
-            health = maxHealth + (hpPerLevel * ui.waveCount);
+            health = maxHealth + (hpPerLevel * ui.freePlayWaves);
         }
         // Update is called once per frame
         void Update()
@@ -56,7 +56,7 @@ namespace UnityEngine.Localization
             if (health <= 0) { Kill(); }
             if (dist2Player <=  5 + player.Area * 1.25 && second >= 1f && player.empowerDuration > 0)
             {
-                TakeDamage(1);
+                TakeDamage(3);
                 second = 0;
             }
             if(second < 1)
@@ -107,15 +107,16 @@ namespace UnityEngine.Localization
                 {
                     Debug.Log("Starting wave " + ui.waveCount);
                     //gives you 3 normal upgrades before you get a special
-                    if(ui.waveCount >= 16)
+                    if(ui.waveCount >= 16 && !player.freeplay)
                     {
                         Debug.Log("Player won! Hooray!");
                         ui.WinGame();
                     }
-                    else if (ui.waveCount % 4 == 0)
+                    else if (ui.waveCount % 4 == 0 && !player.freeplay)
                     {
                         newUpgrade.GetComponent<TriggerUpgradeUI>().isSpecial = true;
                     }
+                    if (player.freeplay) { ui.freePlayWaves += 1; }
                 }
             }
             //roll for siphon healing here
@@ -152,6 +153,7 @@ namespace UnityEngine.Localization
                 //searches for enemyTypeGib (slime)
                 if (child.name == enemyType + "Gib")
                 {
+                    Debug.Log(child.name + ", " + enemyType + "Gib" );
                     GameObject newparticle;
                     newparticle = Instantiate(child);
                     newparticle.gameObject.SetActive(true);
@@ -170,7 +172,7 @@ namespace UnityEngine.Localization
             if (ui.pickeUpgrades.Contains(5)) { deepWounds += 1; }
             if (isBonus == false)
             {
-                if (ui.pickeUpgrades.Contains(4)) { TakeDamage(1, true); }
+                if (ui.pickeUpgrades.Contains(4)) { TakeDamage(2, true); }
                 isBonus = true;
                 
             }

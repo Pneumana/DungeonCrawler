@@ -78,6 +78,8 @@ public class Move : MonoBehaviour
     public int Evasion;
     public int Siphon;
 
+    public bool freeplay;
+
     public float empowerDuration;
 
     private void Start()

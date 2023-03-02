@@ -38,7 +38,7 @@ namespace UnityEngine.Localization
         public void ReEnableSpawning()
         {
             allowed = true;
-            NumberToSpawn = Random.Range(2, 6);
+            NumberToSpawn = Random.Range(2, 6) + (int)ui.freePlayWaves;
         }
         // Update is called once per frame
         void Update()

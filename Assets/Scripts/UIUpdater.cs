@@ -36,6 +36,7 @@ public class UIUpdater : MonoBehaviour
 
     public float shakeAmp = 0;
     public float shakeTime  =0;
+    public float freePlayWaves = 0;
     float xOffset;
     // Start is called before the first frame update
     void Start()
@@ -46,6 +47,7 @@ public class UIUpdater : MonoBehaviour
         enemynumber = GameObject.Find("EnemyNumber");
         winStatus = GameObject.Find("EndMessage");
         winStatus.GetComponent<TextMeshProUGUI>().color = new Color(0f, 0f, 0, 0);
+        winStatus.SetActive(false);
         //use this function for when the player interracts with the upgrader
         //SpawnUpgrades();
         UpdateEnemyNumber();
@@ -88,12 +90,16 @@ public class UIUpdater : MonoBehaviour
     {
         winStatus.GetComponent<TextMeshProUGUI>().text = "You defended the shrine!";
         winStatus.GetComponent<TextMeshProUGUI>().color = new Color(0.95294117647f, 0.72156862745f, 0.09411764705f, 1);
+        winStatus.SetActive(true);
         Player.GetComponent<Move>().disableInput = true;
     }
     public void LoseGame()
     {
         winStatus.GetComponent<TextMeshProUGUI>().text = "The shrine falls to the invaders...";
         winStatus.GetComponent<TextMeshProUGUI>().color = new Color(0.5f, 0, 0, 1);
+        winStatus.SetActive(true);
+        winStatus.transform.Find("Freeplay").gameObject.SetActive(false);
+        winStatus.transform.Find("Restart").transform.localPosition = new Vector2(0, -25);
         Player.GetComponent<Move>().disableInput = true;
     }
     public void UpdateHealth()
@@ -226,7 +232,7 @@ public class UIUpdater : MonoBehaviour
             clone = Instantiate(card, transform);
             clone.SetActive(true);
             clone.transform.SetParent(GameObject.Find("Canvas").gameObject.transform, false);
-            var scalear = clone.GetComponent<UpgradeCardBehavior>().scaleMultiplier;
+            var scalear = this.GetComponent<CanvasScaler>().scaleFactor;
             clone.transform.position = new Vector3(((i * (150 * scalear)) - (150 * scalear)) + (Screen.width / 2), clone.transform.position.y);
             clone.GetComponent<Image>().sprite = altCard;
             
