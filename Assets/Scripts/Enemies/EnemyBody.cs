@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEditor.Animations;
 using UnityEngine;
 
 namespace UnityEngine.Localization
@@ -63,9 +62,18 @@ namespace UnityEngine.Localization
             {
                 second += 1.0f * Time.deltaTime;
             }
+            //THIS IS DEBUG
+            if (Input.GetKeyDown(KeyCode.Mouse2)) {
+                GameObject spawnme = GameObject.Find("Weird Particles").transform.Find("TriggerUpgrade").transform.gameObject;
+                GameObject newUpgrade;
+                newUpgrade = Instantiate(spawnme);
+                newUpgrade.transform.position = transform.position;
+                newUpgrade.SetActive(true);
+                Kill();
+            }
+
             //update deepwounds debuff
-            
-            if(deepWounds > 0 && !debounce) { debounce = true; CreateDeepWoundIcon(); }
+            if (deepWounds > 0 && !debounce) { debounce = true; CreateDeepWoundIcon(); }
         }
        void CreateDeepWoundIcon()
         {
@@ -78,6 +86,7 @@ namespace UnityEngine.Localization
         {
             var startingpos = this.gameObject.transform.position;
             GameObject spawnme;
+            //
             spawnme = GameObject.Find("Weird Particles").transform.Find("TriggerUpgrade").transform.gameObject;
             Destroy(gameObject);
             //do other on kill effects here.
@@ -203,7 +212,7 @@ namespace UnityEngine.Localization
 
                 if (collision.gameObject.name == "Parried(Clone)")
                 {
-                    TakeDamage(player.Damage * 2);
+                    TakeDamage(player.Damage * 3);
                 }
                 if (collision.gameObject.name != "SpecialFireStaff(Clone)" && collision.gameObject.name != "BasicFireStaff(Clone)" && collision.gameObject.name != "Fireball(Clone)" && collision.gameObject.name != "BasicBackswingFireStaff(Clone)" && collision.gameObject.name != "Parried(Clone)")
                 {

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
 using Unity.VisualScripting;
-using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.PlayerLoop;
@@ -12,13 +11,15 @@ using UnityEngine.UI;
 
 public class UIUpdater : MonoBehaviour
 {
+    public static UIUpdater Instance { get; private set; }
+
     public GameObject greyOut;
     public GameObject swordMask;
     public GameObject Player;
 
     GameObject healthbar;
     GameObject healthnumber;
-    GameObject enemynumber;
+    public GameObject enemynumber;
     GameObject winStatus;
     GameObject waveCounter;
 
@@ -46,6 +47,8 @@ public class UIUpdater : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Instance = this;
+        card = GameObject.Find("Canvas").gameObject.transform.Find("GroupUpgrades").gameObject.transform.Find("UpgradeCard").gameObject;
         xOffset = greyOut.transform.position.x;
         healthbar = GameObject.Find("HealthBar");
         healthnumber = GameObject.Find("HealthNumber");
@@ -100,6 +103,7 @@ public class UIUpdater : MonoBehaviour
     }
     public void WinGame()
     {
+        
         winStatus.GetComponent<TextMeshProUGUI>().text = "You defended the shrine!";
         winStatus.GetComponent<TextMeshProUGUI>().color = new Color(0.95294117647f, 0.72156862745f, 0.09411764705f, 1);
         winStatus.SetActive(true);
@@ -107,11 +111,12 @@ public class UIUpdater : MonoBehaviour
     }
     public void LoseGame()
     {
+        var scalear = Screen.width / this.gameObject.GetComponent<CanvasScaler>().referenceResolution.x;
         winStatus.GetComponent<TextMeshProUGUI>().text = "The shrine falls to the invaders...";
         winStatus.GetComponent<TextMeshProUGUI>().color = new Color(0.5f, 0, 0, 1);
         winStatus.SetActive(true);
         winStatus.transform.Find("Freeplay").gameObject.SetActive(false);
-        winStatus.transform.Find("Restart").transform.localPosition = new Vector2(0, -25);
+        winStatus.transform.Find("Restart").transform.localPosition = new Vector2(0, -30 * scalear );
         Player.GetComponent<Move>().disableInput = true;
         //show wave counter text
         waveCounter.GetComponent<TextMeshProUGUI>().text = "You survived " + (waveCount + freePlayWaves).ToString() + " waves!";
@@ -173,12 +178,12 @@ public class UIUpdater : MonoBehaviour
 
     public void SpawnUpgrades()
     {
+        //DEBUG
+        //enemynumber.GetComponent<TextMeshProUGUI>().color = new Color(1, 0, 0, 1);
+
         GameObject clone;
         //creates 3 UpgradeCard objects, positioning them from left to right
         // in this function, add results and conditonals for new rolls not == results
-        string result1;
-        string result2;
-        string result0;
 
         numbers.Clear();
         //generate new numbers :D
@@ -195,26 +200,23 @@ public class UIUpdater : MonoBehaviour
 
         }
 
-        string result;
         for (int i = 0; i < 3; i++)
         {
             //set the upgradeID of each card to numbers[i]
-            GameObject desc;
-            GameObject cardname;
-            clone = Instantiate(card, transform);
+//GameObject desc;
+            //GameObject cardname;
+            clone = Instantiate(card);
             clone.SetActive(true);
             clone.transform.SetParent(GameObject.Find("Canvas").gameObject.transform, false);
             var scalear = this.gameObject.GetComponent<CanvasScaler>().scaleFactor;
             scalear = Screen.width / this.gameObject.GetComponent<CanvasScaler>().referenceResolution.x;
             clone.transform.position = new Vector3(((i * (150 * scalear)) - (150 * scalear)) + (Screen.width/2), clone.transform.position.y);
             
-            desc = card.transform.Find("Description").gameObject;
-            desc.GetComponent<TextMeshProUGUI>().color = new Color(1,1,1,0);
-            cardname = card.transform.Find("CardName").gameObject;
-            cardname.GetComponent<TextMeshProUGUI>().color = new Color(1, 1, 1, 0);
+            //desc = clone.transform.Find("Description").gameObject;
+            //desc.GetComponent<TextMeshProUGUI>().color = new Color(1,1,1,0);
+            //cardname = clone.transform.Find("CardName").gameObject;
+            //cardname.GetComponent<TextMeshProUGUI>().color = new Color(1, 1, 1, 0);
             Player.GetComponent<Move>().disableInput = true;
-            result = UnityEngine.Random.Range(0, 4).ToString();
-
             //make sure stuff is not duped.
             if(clone.GetComponent<UpgradeCardBehavior>() != null)
             {

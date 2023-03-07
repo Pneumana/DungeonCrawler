@@ -5,7 +5,6 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.UIElements;
-using static UnityEditor.PlayerSettings;
 
 public class ProjectileBehavior : MonoBehaviour
 {

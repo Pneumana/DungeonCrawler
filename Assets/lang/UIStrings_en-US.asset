@@ -23,7 +23,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1276228378624
-    m_Localized: Enhances your attack damage.
+    m_Localized: Increases your attack damage.
     m_Metadata:
       m_Items: []
   - m_Id: 1464263221248
@@ -31,7 +31,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1487482888192
-    m_Localized: Enables faster movement.
+    m_Localized: Increases movement speed.
     m_Metadata:
       m_Items: []
   - m_Id: 1691862933504
@@ -39,8 +39,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1773098213376
-    m_Localized: Hastens your actions, letting you attack, recover, and interract
-      faster.
+    m_Localized: Increasese attack speed.
     m_Metadata:
       m_Items: []
   - m_Id: 1973921488896
@@ -48,7 +47,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2001297711104
-    m_Localized: Increases maximum health.
+    m_Localized: Increases maximum health. You are healed to max when you take this
+      upgrade.
     m_Metadata:
       m_Items: []
   - m_Id: 2280034377728
@@ -64,8 +64,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 12964649702236160
-    m_Localized: Kills create vengeful spirits that seek out enemies and explode,
-      dealing damage.
+    m_Localized: Kills create vengeful spirits that seek out enemies, damaging them.
     m_Metadata:
       m_Items: []
   - m_Id: 12964930783518720
@@ -81,7 +80,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 12965415074635776
-    m_Localized: Your basic attacks reflect projectiles
+    m_Localized: Your basic attacks reflect projectiles, dealing 3x your attack damage.
     m_Metadata:
       m_Items: []
   - m_Id: 12965696533405696
@@ -98,7 +97,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 12966986013450240
-    m_Localized: Enemies take an additional 1 damage whenever you damage them.
+    m_Localized: Enemies take additional damage whenever you damage them.
     m_Metadata:
       m_Items: []
   - m_Id: 12967245724753920
@@ -107,7 +106,6 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 12967374737350656
     m_Localized: Every hit on an enemy makes the next attack deal 2 more damage.
-      This effect stacks with itself.
     m_Metadata:
       m_Items: []
   - m_Id: 15321423818235904
@@ -119,7 +117,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 15321006405296128
-    m_Localized: Reduces health drain. Allows you to heal when on low health.
+    m_Localized: Reduces health drain rate. Allows you to heal when on low health.
     m_Metadata:
       m_Items: []
   - m_Id: 15321005532880896

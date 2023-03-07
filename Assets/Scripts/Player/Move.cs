@@ -1,6 +1,4 @@
-using Codice.Client.BaseCommands;
-using Codice.CM.Common;
-using Codice.CM.WorkspaceServer.Tree.GameUI.Checkin.Updater;
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,6 +26,8 @@ public class Move : MonoBehaviour
     public GameObject Player;
     public GameObject Swing;
     public GameObject OtherSwing;
+
+    float comboResetTime = 0;
 
     // this is written to when the player picks up a new shiny upgrade that actually changes how the weapon is played.
     //maybe should be a list
@@ -111,6 +111,7 @@ public class Move : MonoBehaviour
         Vector3 pos = transform.position;
         float rot = Mathf.Atan2(a - pos.x, b - pos.y) * Mathf.Rad2Deg;
         Player.GetComponent<WeaponOverseer>().BasicAttack(EquippedWeapon, rot);
+        //comboResetTime = 1;
     }
     //backswing attack
     void Attack1(float a, float b, int hitNumber)
@@ -118,6 +119,7 @@ public class Move : MonoBehaviour
         Vector3 pos = transform.position;
         float rot = Mathf.Atan2(a - pos.x, b - pos.y) * Mathf.Rad2Deg;
         Player.GetComponent<WeaponOverseer>().BasicBackSwingAttack(EquippedWeapon, rot);
+        //comboResetTime = 1;
     }
 
     public void AddUpgrade(string name, int level)
@@ -220,8 +222,9 @@ public class Move : MonoBehaviour
                 charge = 0;
             }
         }
-
-
+        if(comboResetTime > 0) { comboResetTime-= Time.deltaTime; }
+            if (comboResetTime <= 0) { hitCount = 0; }
+            if (Input.GetKey(KeyCode.Mouse0)){ comboResetTime = 0.5f; }
         //Lets the player weapon actions
         if (hasSword == true)
         {
@@ -324,7 +327,7 @@ public class Move : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Hit trigger " + collision.name);
+        //Debug.Log("Hit trigger " + collision.name);
         //Pick up the sword
         if (collision.name == "ReturnSword(Clone)")
         {

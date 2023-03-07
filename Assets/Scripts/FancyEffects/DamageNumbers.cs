@@ -15,11 +15,11 @@ namespace UnityEngine.Localization
         void Start()
         {
         rotation = UnityEngine.Random.Range(-10, 10);
-            if(Number >= 25)
+            if(Number >= 10)
             {
                 this.GetComponent<TextMeshPro>().color = new Color(1, 1, 0);
             }
-            if (isCrit == true)
+            if (Number >= 20)
             {
                 this.GetComponent<TextMeshPro>().color = new Color(1, 0.5f, 0);
             }
