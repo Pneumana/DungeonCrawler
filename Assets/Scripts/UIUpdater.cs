@@ -20,6 +20,9 @@ public class UIUpdater : MonoBehaviour
     GameObject healthnumber;
     GameObject enemynumber;
     GameObject winStatus;
+    GameObject waveCounter;
+
+    GameObject pickWeapons;
     public int enemyTotal;
 
     public int waveCount;
@@ -50,6 +53,9 @@ public class UIUpdater : MonoBehaviour
         winStatus = GameObject.Find("EndMessage");
         winStatus.GetComponent<TextMeshProUGUI>().color = new Color(0f, 0f, 0, 0);
         winStatus.SetActive(false);
+        pickWeapons = GameObject.Find("WeaponOptions");
+        waveCounter = GameObject.Find("WaveCount");
+        waveCounter.SetActive(false);
         //use this function for when the player interracts with the upgrader
         //SpawnUpgrades();
         UpdateEnemyNumber();
@@ -107,6 +113,9 @@ public class UIUpdater : MonoBehaviour
         winStatus.transform.Find("Freeplay").gameObject.SetActive(false);
         winStatus.transform.Find("Restart").transform.localPosition = new Vector2(0, -25);
         Player.GetComponent<Move>().disableInput = true;
+        //show wave counter text
+        waveCounter.GetComponent<TextMeshProUGUI>().text = "You survived " + (waveCount + freePlayWaves).ToString() + " waves!";
+        waveCounter.SetActive(true);
     }
     public void UpdateHealth()
     {
@@ -290,5 +299,11 @@ public class UIUpdater : MonoBehaviour
         //loop for each child Card and kill them
         //Destroy(card);
 
+    }
+    public void PickWeapon()
+    {
+        pickWeapons.SetActive(false);
+        Player.GetComponent<Move>().disableInput = false;
+        GameObject.Find("EnemySpawner").GetComponent<EnemySpawner>().ReEnableSpawning();
     }
 }

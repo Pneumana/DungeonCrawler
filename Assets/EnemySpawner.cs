@@ -40,13 +40,17 @@ namespace UnityEngine.Localization
             allowed = true;
             NumberToSpawn = Random.Range(2, 6) + (int)ui.freePlayWaves;
         }
+        public void DisableSpawning()
+        {
+            allowed = false;
+        }
         // Update is called once per frame
         void Update()
         {
             if (agent.pathEndPosition.x == transform.position.x)
             {
                 
-                if (NumberToSpawn > 0) 
+                if (NumberToSpawn > 0 && allowed) 
                 {
                     NumberToSpawn--;
                     SetTarget();

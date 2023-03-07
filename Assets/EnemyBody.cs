@@ -183,11 +183,8 @@ namespace UnityEngine.Localization
             if (collision.gameObject.tag == "Player" && health > 0)
             {
                 //create damage numbers
-                if (collision.name == "Parried(Clone)")
-                {
-                    TakeDamage(player.Damage * 2);
-                }
-                else 
+                
+                if (collision.name != "SpecialFireStaff(Clone)" && collision.name != "BasicFireStaff(Clone)" && collision.name != "Fireball(Clone)" && collision.name != "BasicBackswingFireStaff(Clone)")
                 {
                     TakeDamage(player.Damage);
                 }
@@ -203,8 +200,25 @@ namespace UnityEngine.Localization
             if(collision.gameObject.tag == "Player" && health > 0)
             {
                 //create damage numbers
-                TakeDamage(player.Damage);
-                
+
+                if (collision.gameObject.name == "Parried(Clone)")
+                {
+                    TakeDamage(player.Damage * 2);
+                }
+                if (collision.gameObject.name != "SpecialFireStaff(Clone)" && collision.gameObject.name != "BasicFireStaff(Clone)" && collision.gameObject.name != "Fireball(Clone)" && collision.gameObject.name != "BasicBackswingFireStaff(Clone)" && collision.gameObject.name != "Parried(Clone)")
+                {
+                    TakeDamage(player.Damage);
+                }
+                if (collision.gameObject.name == "BasicFireStaff(Clone)" || collision.gameObject.name != "BasicBackswingFireStaff(Clone)" && collision.gameObject.name != "Fireball(Clone)" && player.EquippedWeapon != "Sword")
+                {
+                    Debug.Log("Hit with firestaff");
+                    TakeDamage((player.Damage / 3) * 2);
+                }
+                if (collision.gameObject.name == "Fireball(Clone)")
+                {
+                    Debug.Log("Hit with projectile from firestaff");
+                    TakeDamage((player.Damage / 3));
+                }
                 //Debug.Log("Hit Enemy for " + collision.gameObject.GetComponent<Move>().Damage + 1);
             }
         }
