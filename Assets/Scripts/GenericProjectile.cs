@@ -42,6 +42,7 @@ namespace UnityEngine.Localization
             if (collision.gameObject.name == "Player" && isEnemy)
             {
                 player.GetComponent<Move>().TakeDamage(1, 1f);
+                Debug.Log("killed " + gameObject.name);
                 Destroy(this.gameObject);
             }
         }
@@ -53,7 +54,7 @@ namespace UnityEngine.Localization
                 age += 1f * Time.deltaTime;
             }
             //kills the projectile after 10 seconds + (60 * duration) frames
-            if (age >= ((1.0f) + (1.0f * player.GetComponent<Move>().Duration) ) * Time.deltaTime && !isEnemy)
+            if (age >= ((2.0f) + (1.0f * player.GetComponent<Move>().Duration) ) && !isEnemy)
             {
                 Destroy(this.gameObject);
             }

@@ -101,7 +101,7 @@ public class ProjectileBehavior : MonoBehaviour
             {
                 RecallSword();
             }
-            if (Input.GetKeyDown(KeyCode.Mouse1) && ui.pickeUpgrades.Contains(2))
+            if (Input.GetKeyDown(KeyCode.Mouse1))
             {
                 RecallSword();
             }

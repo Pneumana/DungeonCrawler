@@ -36,9 +36,10 @@ public class UIUpdater : MonoBehaviour
     //public GameObject[] enemies;
 
     public float shakeAmp = 0;
-    public float shakeTime  =0;
+    public float shakeTime = 0;
     public float freePlayWaves = 0;
     float xOffset;
+    public NavMeshPlus.Components.NavMeshSurface navmesh;
     // Start is called before the first frame update
     void Start()
     {
@@ -57,7 +58,11 @@ public class UIUpdater : MonoBehaviour
     {
       
     }
-
+    //Fire this event after the fade to white after the player picks an upgrade
+    public void RefreshNavMesh()
+    {
+        navmesh.UpdateNavMesh(navmesh.navMeshData);
+    }
     public void UpdateEnemyNumber(bool retry = true)
     {
         

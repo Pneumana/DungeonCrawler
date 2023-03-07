@@ -77,12 +77,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 12965310586134528
-    m_Localized: Penetrating Blade
+    m_Localized: Parrying Blade
     m_Metadata:
       m_Items: []
   - m_Id: 12965415074635776
-    m_Localized: Your sword's special pierces enemies and deals damage on return.
-      You can press RMB to recall it early.
+    m_Localized: Your basic attacks reflect projectiles
     m_Metadata:
       m_Items: []
   - m_Id: 12965696533405696

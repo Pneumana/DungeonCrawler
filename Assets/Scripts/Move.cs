@@ -231,7 +231,7 @@ public class Move : MonoBehaviour
             {
 
 
-                if (hitCount == 0 && attackDelay <= 0)
+                if (hitCount == 0 && !isSwingin && attackDelay <= 0)
                 {
                     Attack(worldPosition.x, worldPosition.y, 0);
                         if (updater.pickeUpgrades.Contains(1))
@@ -242,7 +242,7 @@ public class Move : MonoBehaviour
                     attackDelay = (baseAttackTime * (1.0f - (attackSpeed/10.0f))) * 0.50f;
                     hitCount += 1;
                 }
-                if (hitCount == 1 && attackDelay <= 0)
+                if (hitCount == 1 && !isSwingin && attackDelay <= 0)
                     {
                         Attack1(worldPosition.x, worldPosition.y, 0);
                         if (updater.pickeUpgrades.Contains(1))
@@ -254,7 +254,7 @@ public class Move : MonoBehaviour
                         hitCount += 1;
                     }
 
-                if (hitCount == 2 && attackDelay <= 0)
+                if (hitCount == 2 && !isSwingin && attackDelay <= 0)
                 {
 
                     Attack(worldPosition.x, worldPosition.y, 1);

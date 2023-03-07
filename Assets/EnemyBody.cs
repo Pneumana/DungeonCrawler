@@ -183,7 +183,15 @@ namespace UnityEngine.Localization
             if (collision.gameObject.tag == "Player" && health > 0)
             {
                 //create damage numbers
-                TakeDamage(player.Damage);
+                if (collision.name == "Parried(Clone)")
+                {
+                    TakeDamage(player.Damage * 2);
+                }
+                else 
+                {
+                    TakeDamage(player.Damage);
+                }
+
                 
                 //Debug.Log("Hit Enemy for " + collision.gameObject.GetComponent<Move>().Damage + 1);
             }

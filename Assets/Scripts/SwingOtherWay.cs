@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 using UnityEngine.UIElements;
 
 public class SwingOtherWay : MonoBehaviour
@@ -14,10 +15,13 @@ public class SwingOtherWay : MonoBehaviour
     public GameObject launchProjectile = null;
     private bool hasShot;
     Quaternion pos;
+
+    UIUpdater ui;
     // Start is called before the first frame update
     void Start()
     {
         //initAngle = transform.rotation.z;
+        ui = GameObject.Find("Canvas").GetComponent<UIUpdater>();
     }
     public void SetStartingAngle(float rotation)
     {
@@ -30,7 +34,46 @@ public class SwingOtherWay : MonoBehaviour
         {
             Debug.Log("Hit enemy " + collision.gameObject.name + " for " + (int)((player.GetComponent<Move>().Damage + 3)) + " damage");
         }
+        if (collision.gameObject.name == "Circle(Clone)")
+        {
+            Debug.Log("parry");
+            if (ui.pickeUpgrades.Contains(2))
+            {
 
+                Destroy(collision.gameObject);
+                GameObject seeker;
+                seeker = Instantiate(GameObject.Find("ProjectileStorage").transform.Find("FromUpgrades").transform.Find("Parried").gameObject);
+                seeker.SetActive(true);
+                Debug.Log("create parry projectile " + seeker.name);
+                seeker.transform.position = player.transform.position;
+                seeker.GetComponent<GenericProjectile>().speed = 30;
+                seeker.GetComponent<GenericProjectile>().isEnemy = false;
+                
+                GetClosestEnemy(seeker.gameObject);
+            }
+        }
+    }
+   
+    void GetClosestEnemy(GameObject targetObj)
+    {
+        float current = 99999f;
+
+        foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            //float distance = Mathf.Abs((enemy.transform.position.x - gameObject.transform.position.x) + (enemy.transform.position.y - gameObject.transform.position.y));
+            float distance = Vector2.Distance(enemy.transform.position, gameObject.transform.position);
+            if (enemy.GetComponent<EnemyBody>() != null)
+            {
+                //target = enemy.transform;
+            }
+            if (distance < current)
+            {
+                Debug.Log("new closest " + enemy.name + " with distance of " + distance);
+                current = distance;
+                var rot = Mathf.Atan2(targetObj.transform.position.y - enemy.transform.position.y, targetObj.transform.position.x - enemy.transform.position.x) * 180 / Mathf.PI;
+                targetObj.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, rot + 90));
+            }
+        }
     }
 
     // Update is called once per frame
@@ -53,7 +96,7 @@ public class SwingOtherWay : MonoBehaviour
             Debug.Log("shoot!");
             hasShot = true;
         }
-        age += 1 * Time.deltaTime;
+        age += (1 + (0.1f * player.GetComponent<Move>().attackSpeed)) * Time.deltaTime;
         //body = target.GetComponent<Rigidbody2D>();
         target.gameObject.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
         pos = target.transform.rotation;
