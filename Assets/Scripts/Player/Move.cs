@@ -159,9 +159,10 @@ public class Move : MonoBehaviour
     void Update()
     {
         //dubug re-run rolls
-        if (Input.GetKeyDown(KeyCode.F1))
+
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            RollSpecialUpgrades();
+            Application.Quit();
         }
         //Movement
         horizontal = Input.GetAxisRaw("Horizontal");

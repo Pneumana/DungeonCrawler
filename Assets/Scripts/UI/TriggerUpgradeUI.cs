@@ -15,15 +15,12 @@ public class TriggerUpgradeUI : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
-       
-        
         if (collision.gameObject.name == "Player")
         {
             
             if (isSpecial == false)
             {
-                ui.enemynumber.GetComponent<TextMeshProUGUI>().color = new Color(0, 1, 0, 1);
+                //ui.enemynumber.GetComponent<TextMeshProUGUI>().color = new Color(0, 1, 0, 1);
                 Debug.Log("Upgrades are displayed");
                 ui.SpawnUpgrades();
             }
@@ -31,8 +28,6 @@ public class TriggerUpgradeUI : MonoBehaviour
             {
                 ui.SpawnSpecialUpgrades();
             }
-            
-
         }
         Kill();
     }

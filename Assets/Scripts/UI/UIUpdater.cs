@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class UIUpdater : MonoBehaviour
 {
@@ -17,14 +18,16 @@ public class UIUpdater : MonoBehaviour
     public GameObject swordMask;
     public GameObject Player;
 
-    GameObject healthbar;
-    GameObject healthnumber;
+    public GameObject healthbar;
+    public GameObject healthnumber;
     public GameObject enemynumber;
     GameObject winStatus;
     GameObject waveCounter;
 
     GameObject pickWeapons;
     public int enemyTotal;
+
+    public Move PlayerScript;
 
     public int waveCount;
 
@@ -33,6 +36,7 @@ public class UIUpdater : MonoBehaviour
     public List<int> numbers = new List<int>();
     public List<int> pickeUpgrades = new List<int>();
     public Sprite altCard;
+    public Sprite baseCard;
     public int count = 3;
     public int maxRange = 5;
 
@@ -48,7 +52,9 @@ public class UIUpdater : MonoBehaviour
     void Start()
     {
         Instance = this;
-        card = GameObject.Find("Canvas").gameObject.transform.Find("GroupUpgrades").gameObject.transform.Find("UpgradeCard").gameObject;
+        Player = GameObject.Find("Player");
+        PlayerScript = Player.GetComponent<Move>();
+        //card = GameObject.Find("Canvas").gameObject.transform.Find("GroupUpgrades").gameObject.transform.Find("UpgradeCard").gameObject;
         xOffset = greyOut.transform.position.x;
         healthbar = GameObject.Find("HealthBar");
         healthnumber = GameObject.Find("HealthNumber");
@@ -124,15 +130,15 @@ public class UIUpdater : MonoBehaviour
     }
     public void UpdateHealth()
     {
-        var player = Player.GetComponent<Move>();
-        healthnumber.GetComponent<TextMeshProUGUI>().text = player.Health.ToString();
-        if (healthbar.transform.localScale.x > 5.0f * (float)((float)player.Health / (float)player.MaxHealth))
+        //var player = Player.GetComponent<Move>();
+        healthnumber.GetComponent<TextMeshProUGUI>().text = PlayerScript.Health.ToString();
+        if (healthbar.transform.localScale.x > 5.0f * (float)((float)PlayerScript.Health / (float)PlayerScript.MaxHealth))
         {
             //use siphon to drain health slower
-            healthbar.transform.localScale = new Vector3(healthbar.transform.localScale.x - (Mathf.Max((5f - (0.1f * player.Evasion)), 0.25f) * Time.deltaTime), 0.5f);
+            healthbar.transform.localScale = new Vector3(healthbar.transform.localScale.x - (Mathf.Max((5f - (0.1f * PlayerScript.Evasion)), 0.25f) * Time.deltaTime), 0.5f);
         }
-        if (healthbar.transform.localScale.x < 5.0f * (float)((float)player.Health / (float)player.MaxHealth)) {
-            healthbar.transform.localScale = new Vector3(5.0f * (float)((float)player.Health / (float)player.MaxHealth), 0.5f);
+        if (healthbar.transform.localScale.x < 5.0f * (float)((float)PlayerScript.Health / (float)PlayerScript.MaxHealth)) {
+            healthbar.transform.localScale = new Vector3(5.0f * (float)((float)PlayerScript.Health / (float)PlayerScript.MaxHealth), 0.5f);
         }
         
     }
@@ -147,12 +153,12 @@ public class UIUpdater : MonoBehaviour
         if (Player.GetComponent<Move>().hasSword == true)
         {
             //Debug.Log("has sword");
-            greyOut.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            greyOut.GetComponent<UnityEngine.UI.Image>().color = new Color32(255, 255, 255, 255);
         }
         if (Player.GetComponent<Move>().hasSword == false)
         {
             //Debug.Log("lost sword :(");
-            greyOut.GetComponent<Image>().color = new Color32(140, 140, 140, 255);
+            greyOut.GetComponent<UnityEngine.UI.Image>().color = new Color32(140, 140, 140, 255);
         }
         if (Player.GetComponent<Move>().charge >= Player.GetComponent<Move>().chargeMax)
         {
@@ -178,14 +184,10 @@ public class UIUpdater : MonoBehaviour
 
     public void SpawnUpgrades()
     {
-        //DEBUG
-        //enemynumber.GetComponent<TextMeshProUGUI>().color = new Color(1, 0, 0, 1);
-
+        //enemynumber.GetComponent<TextMeshProUGUI>().color = new Color(0, 0, 1, 1);
         GameObject clone;
-        //creates 3 UpgradeCard objects, positioning them from left to right
-        // in this function, add results and conditonals for new rolls not == results
-
         numbers.Clear();
+        Debug.Log("cleared genned upgraddes");
         //generate new numbers :D
         for (int i = 0; i < count; i++)
         {
@@ -197,33 +199,26 @@ public class UIUpdater : MonoBehaviour
             }
 
             numbers.Add(temp);
-
+            Debug.Log(temp);
         }
-
+        //don't create new cards, instead set GroupUpgrades to active and yaknow, do things
+        gameObject.transform.Find("GroupUpgrades").gameObject.SetActive(true);
         for (int i = 0; i < 3; i++)
         {
             //set the upgradeID of each card to numbers[i]
-//GameObject desc;
-            //GameObject cardname;
-            clone = Instantiate(card);
+            clone = GameObject.Find("Card" + i.ToString());
+            Debug.Log("Setting Card" + i.ToString() + "'s upgrade ID to " + numbers[i].ToString());
             clone.SetActive(true);
-            clone.transform.SetParent(GameObject.Find("Canvas").gameObject.transform, false);
-            var scalear = this.gameObject.GetComponent<CanvasScaler>().scaleFactor;
-            scalear = Screen.width / this.gameObject.GetComponent<CanvasScaler>().referenceResolution.x;
-            clone.transform.position = new Vector3(((i * (150 * scalear)) - (150 * scalear)) + (Screen.width/2), clone.transform.position.y);
-            
-            //desc = clone.transform.Find("Description").gameObject;
-            //desc.GetComponent<TextMeshProUGUI>().color = new Color(1,1,1,0);
-            //cardname = clone.transform.Find("CardName").gameObject;
-            //cardname.GetComponent<TextMeshProUGUI>().color = new Color(1, 1, 1, 0);
             Player.GetComponent<Move>().disableInput = true;
-            //make sure stuff is not duped.
-            if(clone.GetComponent<UpgradeCardBehavior>() != null)
+            clone.GetComponent<UnityEngine.UI.Image>().sprite = baseCard;
+            if (clone.GetComponent<UpgradeCardBehavior>() != null)
             {
                 clone.GetComponent<UpgradeCardBehavior>().upgradeID = numbers[i];
+                clone.GetComponent<UpgradeCardBehavior>().isSpecial = false;
+                clone.GetComponent<UpgradeCardBehavior>().Refresh();
                 Debug.Log("result " + i + " assigned ");
             }
-            
+
         }
     }
     public void SpawnSpecialUpgrades()
@@ -250,27 +245,28 @@ public class UIUpdater : MonoBehaviour
             }
         }
         else { Debug.Log("player has too many special upgrades, unable to apply more"); }
-        
 
-        string result;
+
+        gameObject.transform.Find("GroupUpgrades").gameObject.SetActive(true);
         for (int i = 0; i < 3; i++)
         {
             //set the upgradeID of each card to numbers[i]
-            GameObject desc;
-            GameObject cardname;
-            clone = Instantiate(card, transform);
+            clone = GameObject.Find("Card" + i.ToString());
             clone.SetActive(true);
-            clone.transform.SetParent(GameObject.Find("Canvas").gameObject.transform, false);
+            card.transform.localScale = new Vector3(1, 2, 1.0f);
+            /*clone.transform.SetParent(GameObject.Find("Canvas").gameObject.transform, false);
             var scalear = this.GetComponent<CanvasScaler>().scaleFactor;
             scalear = Screen.width / this.gameObject.GetComponent<CanvasScaler>().referenceResolution.x;
-            clone.transform.position = new Vector3(((i * (150 * scalear)) - (150 * scalear)) + (Screen.width / 2), clone.transform.position.y);
-            clone.GetComponent<Image>().sprite = altCard;
-            
+            clone.transform.position = new Vector3(((i * (150 * scalear)) - (150 * scalear)) + (Screen.width / 2), clone.transform.position.y);*/
+
             //change the sprite of the upgrade card to the enhanced one.
-            desc = card.transform.Find("Description").gameObject;
+            clone.GetComponent<UnityEngine.UI.Image>().sprite = altCard;
+            
+           
+/*            desc = card.transform.Find("Description").gameObject;
             desc.GetComponent<TextMeshProUGUI>().color = new Color(1, 1, 1, 0);
             cardname = card.transform.Find("CardName").gameObject;
-            cardname.GetComponent<TextMeshProUGUI>().color = new Color(1, 1, 1, 0);
+            cardname.GetComponent<TextMeshProUGUI>().color = new Color(1, 1, 1, 0);*/
             Player.GetComponent<Move>().disableInput = true;
             
 
@@ -280,6 +276,7 @@ public class UIUpdater : MonoBehaviour
                 clone.GetComponent<UpgradeCardBehavior>().upgradeID = numbers[i];
                 Debug.Log("result " + i + " assigned ");
                 clone.GetComponent<UpgradeCardBehavior>().isSpecial = true;
+                clone.GetComponent<UpgradeCardBehavior>().Refresh();
             }
 
         }
@@ -287,7 +284,8 @@ public class UIUpdater : MonoBehaviour
     public void KillUpgrades()
     {
         //GameObject child;
-        for (int i = 0; i < GameObject.Find("Canvas").gameObject.transform.childCount; i++)
+        gameObject.transform.Find("GroupUpgrades").gameObject.SetActive(false);
+        /*for (int i = 0; i < GameObject.Find("Canvas").gameObject.transform.childCount; i++)
         {
             GameObject child = GameObject.Find("Canvas").gameObject.transform.GetChild(i).gameObject;
             if (child.name == card.name + "(Clone)")
@@ -295,8 +293,8 @@ public class UIUpdater : MonoBehaviour
                 Destroy(child);
             }
             
-        }
-        Player.GetComponent<Move>().disableInput = false;
+        }*/
+        GameObject.Find("Player").GetComponent<Move>().disableInput = false;
         GameObject.Find("EnemySpawner").GetComponent<EnemySpawner>().ReEnableSpawning();
         //loop for each child Card and kill them
         //Destroy(card);

@@ -63,14 +63,14 @@ namespace UnityEngine.Localization
                 second += 1.0f * Time.deltaTime;
             }
             //THIS IS DEBUG
-            if (Input.GetKeyDown(KeyCode.Mouse2)) {
+            /*if (Input.GetKeyDown(KeyCode.Mouse2)) {
                 GameObject spawnme = GameObject.Find("Weird Particles").transform.Find("TriggerUpgrade").transform.gameObject;
                 GameObject newUpgrade;
                 newUpgrade = Instantiate(spawnme);
                 newUpgrade.transform.position = transform.position;
                 newUpgrade.SetActive(true);
                 Kill();
-            }
+            }*/
 
             //update deepwounds debuff
             if (deepWounds > 0 && !debounce) { debounce = true; CreateDeepWoundIcon(); }
@@ -221,12 +221,12 @@ namespace UnityEngine.Localization
                 if (collision.gameObject.name == "BasicFireStaff(Clone)" || collision.gameObject.name != "BasicBackswingFireStaff(Clone)" && collision.gameObject.name != "Fireball(Clone)" && player.EquippedWeapon != "Sword")
                 {
                     Debug.Log("Hit with firestaff");
-                    TakeDamage((player.Damage / 3) * 2);
+                    TakeDamage((int)Mathf.Ceil(player.Damage * 0.66f));
                 }
                 if (collision.gameObject.name == "Fireball(Clone)")
                 {
                     Debug.Log("Hit with projectile from firestaff");
-                    TakeDamage((player.Damage / 3));
+                    TakeDamage((int)Mathf.Ceil(player.Damage * 0.33f));
                 }
                 //Debug.Log("Hit Enemy for " + collision.gameObject.GetComponent<Move>().Damage + 1);
             }

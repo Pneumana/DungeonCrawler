@@ -67,7 +67,7 @@ public class GrowOverTime : MonoBehaviour
             if(damageCD <= 0 && doTicks)
             {
             Debug.Log("Log my nuts");
-                enemy.gameObject.GetComponent<EnemyBody>().TakeDamage(player.GetComponent<Move>().Damage - 2);
+                enemy.gameObject.GetComponent<EnemyBody>().TakeDamage((int)Mathf.Ceil(player.gameObject.GetComponent<Move>().Damage * 0.33f));
                 damageCD = 0.25f;
             }
             if (isEnemy == true)
