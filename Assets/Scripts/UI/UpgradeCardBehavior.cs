@@ -14,7 +14,7 @@ using UnityEngine.UIElements;
 public class UpgradeCardBehavior : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public GameObject card;
-    private bool mouseOver = false;
+    public bool mouseOver = false;
     public int tier = 0;
     public int upgradeID = 0;
     public int cardID = 0;

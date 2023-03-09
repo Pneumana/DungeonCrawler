@@ -215,6 +215,7 @@ public class UIUpdater : MonoBehaviour
             {
                 clone.GetComponent<UpgradeCardBehavior>().upgradeID = numbers[i];
                 clone.GetComponent<UpgradeCardBehavior>().isSpecial = false;
+                clone.GetComponent<UpgradeCardBehavior>().mouseOver = false;
                 clone.GetComponent<UpgradeCardBehavior>().Refresh();
                 Debug.Log("result " + i + " assigned ");
             }
@@ -276,6 +277,7 @@ public class UIUpdater : MonoBehaviour
                 clone.GetComponent<UpgradeCardBehavior>().upgradeID = numbers[i];
                 Debug.Log("result " + i + " assigned ");
                 clone.GetComponent<UpgradeCardBehavior>().isSpecial = true;
+                clone.GetComponent<UpgradeCardBehavior>().mouseOver = false;
                 clone.GetComponent<UpgradeCardBehavior>().Refresh();
             }
 
