@@ -28,8 +28,9 @@ public class TriggerUpgradeUI : MonoBehaviour
             {
                 ui.SpawnSpecialUpgrades();
             }
+            Kill();
         }
-        Kill();
+        
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
